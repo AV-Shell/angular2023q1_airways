@@ -1,17 +1,38 @@
+@import 'src/app/styles/common.scss';
+
 :host {
   display: flex;
   align-items: center;
 
   .app-header {
     flex: 1 1 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 14px;
+    @include flex(flex, row, space-between, center, wrap, 14px);
 
-    .stepper {
-      flex: 1 1 100%;
+    .info-container {
+      flex: 1 1 600px;
+      @include flex(flex, row, flex-start, center, nowrap, 14px);
+
+      .stepper {
+        flex: 1 1 100%;
+      }
+
+      @media #{$media-phone} {
+        display: none;
+      }
+    }
+
+    .controls-container {
+      @include flex(flex, row, flex-start, center, nowrap, 14px);
+
+      padding: 10px 0px;
+
+      .group-container {
+        @include flex(flex, row, flex-start, center, nowrap, 14px);
+      }
+
+      @media #{$media-phone} {
+        flex-wrap: wrap;
+      }
     }
 
     .data-format-select-wrapper,

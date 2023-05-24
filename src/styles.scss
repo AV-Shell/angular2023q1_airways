@@ -8,32 +8,42 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+@import 'app/styles/common.scss';
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$angular2023q1_airways-primary: mat.define-palette(mat.$indigo-palette);
-$angular2023q1_airways-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$angular2023q1_airways-primary: mat.define-palette($my-palette1);
+$angular2023q1_airways-accent: mat.define-palette($my-palette2, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$angular2023q1_airways-warn: mat.define-palette(mat.$red-palette);
+$angular2023q1_airways-warn: mat.define-palette($my-palette3);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$angular2023q1_airways-theme: mat.define-light-theme((
-  color: (
-    primary: $angular2023q1_airways-primary,
-    accent: $angular2023q1_airways-accent,
-    warn: $angular2023q1_airways-warn,
+$angular2023q1_airways-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $angular2023q1_airways-primary,
+      accent: $angular2023q1_airways-accent,
+      warn: $angular2023q1_airways-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($angular2023q1_airways-theme);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
 
 * {
   box-sizing: border-box;
@@ -43,4 +53,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .contentWrapper {
   padding: 0 156px;
+}
+
+.bookingFormContentWrapper {
+  padding: 30px 44px;
+}
+
+@media #{$media-tablets} {
+  .contentWrapper {
+    padding: 0 64px;
+  }
+
+  .bookingFormContentWrapper {
+    padding: 20px 20px;
+  }
+}
+
+@media #{$media-phone} {
+  .contentWrapper {
+    padding: 0 10px;
+  }
+
+  .bookingFormContentWrapper {
+    padding: 10px 10px;
+  }
 }

@@ -1,3 +1,53 @@
+@import 'src/app/styles/common.scss';
+
 :host {
   display: block;
+}
+
+.bookingFormContentWrapper {
+  @include flex(flex, row, space-between, center, wrap, 8px);
+
+  .commonInfoContainer {
+    @include flex(flex, row, center, center, wrap, 8px);
+
+    @media #{$media-phone} {
+      flex-direction: column;
+    }
+
+    .githubLinksContainer {
+      @include flex(flex, row, center, center, nowrap, 8px);
+    }
+
+    .copyrights-text {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.25px;
+      color: $primary;
+      white-space: nowrap;
+    }
+  }
+
+  .paymentInfoContainer {
+    @include flex(flex, row, space-between, center, nowrap, 8px);
+
+    @media #{$media-phone} {
+      flex-direction: column;
+    }
+
+    .payment-text {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.25px;
+      color: black;
+    }
+    .payment-icon-container {
+      @include flex(flex, row, space-between, center, nowrap, 8px);
+    }
+  }
 }
