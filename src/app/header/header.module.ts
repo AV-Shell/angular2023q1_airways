@@ -10,14 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [HeaderComponent],
-  imports: [
-    CommonModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, MatStepperModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule],
   exports: [HeaderComponent],
 })
 export class HeaderModule {}

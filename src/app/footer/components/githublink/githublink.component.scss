@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    white-space: nowrap;
+  }
+}

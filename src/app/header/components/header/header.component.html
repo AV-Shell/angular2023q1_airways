@@ -1,28 +1,36 @@
 <header class="contentWrapper app-header">
-  <img class="img-responsive" src="/assets/logo.svg" />
-  <mat-stepper [linear]="true" #stepper [selectedIndex]="1" (selectionChange)="log($event)" class="stepper">
-    <mat-step label="Flights"> </mat-step>
-    <mat-step label="Passengers"> </mat-step>
-    <mat-step label="Review & Payment"> </mat-step>
-  </mat-stepper>
-  <mat-form-field appearance="fill" class="data-format-select-wrapper" subscriptSizing="dynamic">
-    <mat-select class="custom-select" [value]="(commonState | async)?.dateFormat" (selectionChange)="onChangeDataFormat($event)">
-      <mat-option *ngFor="let item of datas" [value]="item.value">
-        {{ item.value }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill" class="money-select-wrapper" subscriptSizing="dynamic">
-    <mat-select
-      class="money-select"
-      panelClass="money-select"
-      [value]="(commonState | async)?.moneyFormat"
-      (selectionChange)="onChangeMoneyFormat($event)">
-      <mat-option *ngFor="let item of moneys" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-stroked-button class="sing-in-button"><mat-icon>account_box</mat-icon>Sign in</button>
-  <button mat-stroked-button class="cart-button"><mat-icon>shopping_basket</mat-icon></button>
+  <div class="info-container">
+    <img class="img-responsive" src="/assets/logo.svg" />
+    <mat-stepper [linear]="true" #stepper [selectedIndex]="1" (selectionChange)="log($event)" class="stepper">
+      <mat-step label="Flights"> </mat-step>
+      <mat-step label="Passengers"> </mat-step>
+      <mat-step label="Review & Payment"> </mat-step>
+    </mat-stepper>
+  </div>
+  <div class="controls-container">
+    <div class="group-container">
+      <mat-form-field appearance="fill" class="data-format-select-wrapper" subscriptSizing="dynamic">
+        <mat-select class="custom-select" [value]="(commonState | async)?.dateFormat" (selectionChange)="onChangeDataFormat($event)">
+          <mat-option *ngFor="let item of datas" [value]="item.value">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="money-select-wrapper" subscriptSizing="dynamic">
+        <mat-select
+          class="money-select"
+          panelClass="money-select"
+          [value]="(commonState | async)?.moneyFormat"
+          (selectionChange)="onChangeMoneyFormat($event)">
+          <mat-option *ngFor="let item of moneys" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="group-container">
+      <button mat-stroked-button class="sing-in-button"><mat-icon>account_box</mat-icon>Sign in</button>
+      <button mat-stroked-button class="cart-button"><mat-icon>shopping_basket</mat-icon></button>
+    </div>
+  </div>
 </header>
