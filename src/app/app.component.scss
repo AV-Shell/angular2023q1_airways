@@ -1,0 +1,19 @@
+$header-height: 88px;
+$footer-height: 92px;
+
+
+.header {
+  background-color: aquamarine;
+  min-height: $header-height;
+}
+
+.main {
+  background-color: bisque;
+  min-height: calc(100vh - $header-height - $footer-height);
+}
+
+.footer {
+  background-color: burlywood;
+  min-height: $footer-height;
+}
+
