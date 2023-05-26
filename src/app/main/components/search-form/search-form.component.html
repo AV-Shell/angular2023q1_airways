@@ -36,7 +36,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-mini-fab color="primary" aria-label="Example icon button with a home icon">
+    <button mat-mini-fab color="primary" (click)="switchAirports()" type="button">
       <mat-icon>sync_alt</mat-icon>
     </button>
   </div>
@@ -50,12 +50,48 @@
 
     <mat-form-field class="passengers" appearance="outline">
       <mat-label>Passengers</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let option of filteredTo | async" [value]="option">
-          {{ option }}
+      <mat-select multiple>
+        <mat-option class="passenger-option">
+          <div class="counter-wrapper">
+            <div class="passenger-description">
+              <div class="main-info">Adults</div>
+              <div class="additional-info">14+ years</div>
+            </div>
+            <div class="counter-group">
+              <div>-</div>
+              <div>0</div>
+              <div>+</div>
+            </div>
+          </div>
         </mat-option>
+        <mat-option class="passenger-option"
+          ><div class="counter-wrapper">
+            <div class="passenger-description">
+              <div class="main-info">Child</div>
+              <div class="additional-info">2-14 years</div>
+            </div>
+            <div class="counter-group">
+              <div>-</div>
+              <div>0</div>
+              <div>+</div>
+            </div>
+          </div></mat-option
+        >
+        <mat-option class="passenger-option"
+          ><div class="counter-wrapper">
+            <div class="passenger-description">
+              <div class="main-info">Infants</div>
+              <div class="additional-info">0-2 years</div>
+            </div>
+            <div class="counter-group">
+              <div>-</div>
+              <div>0</div>
+              <div>+</div>
+            </div>
+          </div></mat-option
+        >
       </mat-select>
     </mat-form-field>
   </div>
-  <button mat-flat-button color="primary" class="submit-button"  (click)="onSubmit()">Search</button>
+  <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()">Search</button>
 </form>

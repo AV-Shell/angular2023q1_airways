@@ -35,14 +35,14 @@
   width: 100%;
 }
 
-.airport-name {
+.main-info {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.5px;
 }
 
-.airport-info {
+.additional-info {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
@@ -78,6 +78,23 @@
   }
 }
 
+.counter-wrapper {
+  display: flex;
+
+  .passenger-description {
+    flex: 1 1 100%
+  }
+
+  .counter-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+
+
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
   margin-left: 62px;
   @media #{$media-phone} {
@@ -89,6 +106,16 @@
   position: absolute;
   left: 88%;
   top: 65px;
+}
+
+::ng-deep.passenger-option {
+  .mat-pseudo-checkbox {
+    display: none !important;
+  }
+  .mdc-list-item__primary-text {
+    display: block;
+    width: 100%;
+  }
 }
 
 .submit-button {
