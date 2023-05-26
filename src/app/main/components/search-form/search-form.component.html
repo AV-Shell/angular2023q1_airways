@@ -1,0 +1,61 @@
+<form class="search-form" [formGroup]="form">
+  <mat-radio-group color="primary">
+    <mat-radio-button value="1" checked="true"><span class="radio-text">Round Trip</span></mat-radio-button>
+    <mat-radio-button value="2" class="radio-text"><span class="radio-text">One Way</span></mat-radio-button>
+  </mat-radio-group>
+  <div class="destination">
+    <mat-form-field class="destination-input" appearance="outline">
+      <mat-label>From</mat-label>
+      <input type="text" placeholder="Departure" aria-label="From" matInput formControlName="from" [matAutocomplete]="from" />
+      <mat-autocomplete #from="matAutocomplete">
+        <mat-option *ngFor="let airport of filteredFrom | async" [value]="buildValue(airport)">
+          <div class="airport-name">
+            {{ airport.name }} <span>({{ airport.code }})</span>
+          </div>
+
+          <div class="airport-info">{{ airport.city }}, {{ airport.country }}</div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="destination-input" appearance="outline">
+      <mat-label>Destination</mat-label>
+      <input
+        type="text"
+        placeholder="Choose your destination"
+        aria-label="Destination"
+        matInput
+        formControlName="to"
+        [matAutocomplete]="to" />
+      <mat-autocomplete #to="matAutocomplete">
+        <mat-option *ngFor="let airport of filteredTo | async" [value]="buildValue(airport)">
+          <div class="airport-name">
+            {{ airport.name }} <span>({{ airport.code }})</span>
+          </div>
+
+          <div class="airport-info">{{ airport.city }}, {{ airport.country }}</div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" aria-label="Example icon button with a home icon">
+      <mat-icon>sync_alt</mat-icon>
+    </button>
+  </div>
+  <div class="info-wrapper">
+    <mat-form-field class="date" appearance="outline">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="passengers" appearance="outline">
+      <mat-label>Passengers</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let option of filteredTo | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button mat-flat-button color="primary" class="submit-button"  (click)="onSubmit()">Search</button>
+</form>

@@ -1,0 +1,142 @@
+@import './../../../styles/common.scss';
+
+.search-form {
+  width: 580px;
+  background: #ffffffd9;
+  border-radius: 8px;
+  padding: 24px;
+
+  @media #{$media-phone} {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
+.radio-text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: $primary !important;
+}
+
+.destination {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 0;
+
+  @media #{$media-phone} {
+    padding: 14px 0 0;
+  }
+}
+
+.destination-input {
+  width: 100%;
+}
+
+.airport-name {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.airport-info {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: $neutral-30;
+}
+
+.info-wrapper {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 12px;
+
+  @media #{$media-phone} {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.date {
+  flex-grow: 1;
+
+  @media #{$media-phone} {
+    width: 100%;
+  }
+}
+
+.passengers {
+  flex-basis: 210px;
+
+  @media #{$media-phone} {
+    width: 100%;
+    flex-basis: 0%;
+  }
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 62px;
+  @media #{$media-phone} {
+    margin-left: 24px;
+  }
+}
+
+.mat-mdc-mini-fab {
+  position: absolute;
+  left: 88%;
+  top: 65px;
+}
+
+.submit-button {
+  display: flex;
+  width: 126px;
+  height: 60px;
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+
+  @media #{$media-phone} {
+    width: 100%;
+  }
+}
+
+// /* To change mat form field border color */
+// :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+//   color:green;
+// }
+// /* To change mat form field border color on focus */
+// :host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
+//   color: green;
+// }
+
+// ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused {
+//   .mdc-notched-outline__leading,
+//   .mdc-notched-outline__notch,
+//   .mdc-notched-outline__trailing {
+//     border-color: green;
+//   }
+
+//   .mdc-floating-label {
+//     color: green;
+//   }
+// }
+
+// ::ng-deep
+//   .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+//   .mdc-notched-outline__leading,
+// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
+// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+//   border-color: red;
+// }
+
+// ::ng-deep.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
+// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
+// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+//   border-color: yellow;
+// }

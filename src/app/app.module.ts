@@ -11,7 +11,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { commonReducer } from './store/reducers';
-// import { HeaderComponent } from './components/header/header.component';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
 

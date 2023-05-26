@@ -1,3 +1,5 @@
+@import './../app/styles/variables.scss';
+
 $header-height: 88px;
 $footer-height: 92px;
 
@@ -8,12 +10,11 @@ $footer-height: 92px;
 }
 
 .main {
-  background-color: bisque;
   min-height: calc(100vh - $header-height - $footer-height);
 }
 
 .footer {
-  background-color: burlywood;
+  background-color: $neutral-80;
   min-height: $footer-height;
 }
 

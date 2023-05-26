@@ -42,7 +42,9 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif !important;
+  background: url('./assets/Background.png') no-repeat;
+  background-size: cover;
 }
 
 * {
@@ -78,3 +80,5 @@ body {
     padding: 10px 10px;
   }
 }
+
+@import 'app/styles/material.scss';
