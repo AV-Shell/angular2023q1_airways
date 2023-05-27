@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 import { FlightSelectionRoutingModule } from './flight-selection-routing.module';
 import { FlightSelectionComponent } from './flight-selection.component';
@@ -11,6 +12,6 @@ import { FlightFullInfoComponent } from './components/flight-full-info/flight-fu
 
 @NgModule({
   declarations: [FlightSelectionComponent, SuggestionComponent, FlightMinInfoComponent, FlightFullInfoComponent],
-  imports: [CommonModule, FlightSelectionRoutingModule, SharedModule, MatButtonModule],
+  imports: [CommonModule, FlightSelectionRoutingModule, SharedModule, MatButtonModule, SlickCarouselModule],
 })
 export class FlightSelectionModule {}

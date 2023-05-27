@@ -3,8 +3,8 @@
   <div class="content">
     <form *ngIf="showEditForm" class="edit-form"></form>
     <ng-container *ngIf="true">
-      <app-suggestion [value]="airResponse?.thereWay" [formats]="formats"></app-suggestion>
-      <app-suggestion *ngIf="airResponse?.backWay" [from]="true" [value]="airResponse?.backWay" [formats]="formats"> </app-suggestion>
+      <app-suggestion class="there" [value]="airResponse?.thereWay" [formats]="formats"></app-suggestion>
+      <app-suggestion class="back" *ngIf="airResponse?.backWay" [from]="true" [value]="airResponse?.backWay" [formats]="formats"> </app-suggestion>
       <div class="buttons-wrapper">
         <button class="button white" mat-button color="primary" (click)="backClick()">
           <span class="button-text">Back</span>

@@ -10,7 +10,7 @@ import { IFlightInfoExt, IFormats } from 'src/app/store/models';
 export class FlightFullInfoComponent {
   @Input() isReturn = false;
   @Input() selected = false;
-  @Input() unaviable = false;
+  // @Input() unaviable = false;
 
   @Input() value: IFlightInfoExt | undefined;
   @Input() formats: IFormats | undefined;
@@ -55,5 +55,9 @@ export class FlightFullInfoComponent {
 
   get currencyFormat() {
     return this.formats?.moneyFormat ?? 'USD';
+  }
+
+  get unaviable() {
+    return this.value?.isFlight;
   }
 }
