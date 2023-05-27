@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { MatRadioChange } from '@angular/material/radio';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { airports } from 'src/constants';
@@ -13,12 +14,27 @@ export class SearchFormComponent implements OnInit {
   public form: FormGroup = new FormGroup({
     from: new FormControl(''),
     to: new FormControl(''),
+    tripType: new FormControl('1'),
+    start: new FormControl(''),
+    end: new FormControl(''),
+    adults: new FormControl('2'),
+    child: new FormControl('2'),
+    infants: new FormControl('2'),
   });
   public options: Airports[] = airports;
   public filteredFrom!: Observable<Airports[]> | null;
   public filteredTo!: Observable<Airports[]> | null;
+  public tripType!: string;
+  public isOneWay!: boolean;
+  public minDate = new Date();
+  public maxDate!: Date;
 
-  get from() {
+  constructor() {
+    const currentYear = new Date().getFullYear();
+    this.maxDate = new Date(currentYear + 0, 11, 31);
+  }
+
+  get from(): AbstractControl | null {
     return this.form.get('from');
   }
 
@@ -27,8 +43,13 @@ export class SearchFormComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.isOneWay = this.form.get('tripType')?.value !== '1';
     this.filteredFrom = this.filterAirports(this.from);
     this.filteredTo = this.filterAirports(this.to);
+  }
+
+  public changeCalendar(e: MatRadioChange): void {
+    this.isOneWay = e.value !== '1';
   }
 
   public buildValue(airport: Airports): string {
@@ -50,7 +71,7 @@ export class SearchFormComponent implements OnInit {
     }
   }
 
-  private filterAirports(control: AbstractControl | null) {
+  private filterAirports(control: AbstractControl | null): Observable<Airports[]> | null {
     if (!control) {
       return null;
     }
