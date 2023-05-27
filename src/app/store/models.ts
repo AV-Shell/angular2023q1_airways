@@ -10,9 +10,36 @@ export interface ICommonState {
   token: string | null;
 }
 
+export interface IFlightSearchState {
+  adults: number;
+  child: number;
+  infants: number;
+  tripType: number;
+  searchFrom: string;
+  searchTo: string;
+  airportFrom: string;
+  airportTo: string;
+  codeFrom: string;
+  codeTo: string;
+  start: string;
+  end: string;
+}
+
+export interface IFlightSearchFormSubmit {
+  adults: string;
+  child: string;
+  infants: string;
+  tripType: string;
+  from: string;
+  to: string;
+  start: Date;
+  end: Date;
+}
+
 export interface IAppState {
   commonState: ICommonState;
   airResponseState: IAirResponseExt;
+  flightSearchState: IFlightSearchState;
 }
 
 export interface IFormats {

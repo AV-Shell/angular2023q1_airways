@@ -43,23 +43,19 @@ export class HeaderComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private store: Store<IAppState>) {}
 
   ngOnInit(): void {
-    console.log(this.store);
     this.commonState = this.store.select(commonStateSelector);
   }
 
+  //TODO:
   log(data: unknown) {
     console.log('this step', this.step);
     console.log(data);
   }
 
   onChangeDataFormat(data: { value: TDataFormat }) {
-    console.log('onChangeDataFormat', this.step);
-    console.log(data);
     this.store.dispatch(changeDataFormatValue({ value: data.value }));
   }
   onChangeMoneyFormat(data: { value: TMoneyFormat }) {
-    console.log('onChangeMoneyFormat', this.step);
-    console.log(data);
     this.store.dispatch(changeMoneyFormatValue({ value: data.value }));
   }
 }

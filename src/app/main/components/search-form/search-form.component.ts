@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { airports } from 'src/app/constants/airports';
+import { changeFlightSearchValue } from 'src/app/store/actions';
+import { IAppState, IFlightSearchFormSubmit, IFlightSearchState } from 'src/app/store/models';
 
 @Component({
   selector: 'app-search-form',
@@ -29,7 +32,7 @@ export class SearchFormComponent implements OnInit {
   public minDate = new Date();
   public maxDate!: Date;
 
-  constructor() {
+  constructor(private store: Store<IAppState>) {
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear + 0, 11, 31);
   }
@@ -68,6 +71,7 @@ export class SearchFormComponent implements OnInit {
     if (this.form.valid) {
       console.log(1);
       console.log(this.form);
+      this.setAction(this.form.value);
     }
   }
 
@@ -87,6 +91,25 @@ export class SearchFormComponent implements OnInit {
     return this.options.filter(({ name, city, country, code }: Airports) =>
       `${name} ${city} ${country} ${code}`.toLowerCase().includes(filterValue),
     );
+  }
+
+  private setAction(value: IFlightSearchFormSubmit) {
+    const stateValues: IFlightSearchState = {
+      adults: +value.adults,
+      child: +value.child,
+      infants: +value.infants,
+      tripType: +value.tripType,
+      airportFrom: value.from.slice(0, -6),
+      airportTo: value.to.slice(0, -6),
+      codeFrom: value.from.slice(-4, -1),
+      codeTo: value.to.slice(-4, -1),
+      searchFrom: value.from,
+      searchTo: value.to,
+      end: value.end.toString(),
+      start: value.start.toString(),
+    };
+
+    this.store.dispatch(changeFlightSearchValue({ value: stateValues }));
   }
 }
 

@@ -1,4 +1,4 @@
-import { IAirResponseExt, ICommonState } from './models';
+import { IAirResponseExt, ICommonState, IFlightSearchState } from './models';
 
 export const commonInitialState: ICommonState = {
   dateFormat: 'YYYY/MM/DD',
@@ -6,6 +6,21 @@ export const commonInitialState: ICommonState = {
   moneyField: 'usd',
   isSign: false,
   token: null,
+};
+
+export const flightSearchInitialState: IFlightSearchState = {
+  adults: 0,
+  child: 0,
+  infants: 0,
+  tripType: 1,
+  searchFrom: '',
+  searchTo: '',
+  airportFrom: '',
+  airportTo: '',
+  codeFrom: '',
+  codeTo: '',
+  start: '',
+  end: '',
 };
 
 export const responseInitialState: IAirResponseExt | null = {

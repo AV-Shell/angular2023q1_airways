@@ -10,7 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { airResponseReducer, commonReducer } from './store/reducers';
+import { airResponseReducer, commonReducer, flightSearchReducer } from './store/reducers';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
 
@@ -20,7 +20,7 @@ import { FooterModule } from './footer/footer.module';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(
-      { commonState: commonReducer, airResponseState: airResponseReducer, router: routerReducer },
+      { commonState: commonReducer, flightSearchState: flightSearchReducer, airResponseState: airResponseReducer, router: routerReducer },
       {
         runtimeChecks: {
           strictStateImmutability: true,
