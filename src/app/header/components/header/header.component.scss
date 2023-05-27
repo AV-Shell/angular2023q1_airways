@@ -12,9 +12,17 @@
     flex: 1 1 100%;
     @include flex(flex, row, space-between, center, wrap, 14px);
 
+    &.notMainPage{
+      background-color: $neutral-100;
+    }
+
     .info-container {
       flex: 1 1 200px;
       @include flex(flex, row, flex-start, center, nowrap, 14px);
+
+      .img-logo {
+        cursor: pointer;
+      }
 
       .stepper {
         flex: 1 1 100%;

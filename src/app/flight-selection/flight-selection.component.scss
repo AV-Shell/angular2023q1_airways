@@ -11,6 +11,10 @@
   position: relative;
   padding: 48px 0 20px 0;
 
+  .page{
+    @include flex(flex, column, stretch, stretch, nowrap, 20px);
+  }
+
   .edit-form {
     @include flex(flex, row, space-evenly, center, wrap, 20px);
     position: absolute;
@@ -31,7 +35,7 @@
       width: 126px;
       height: 60px;
 
-      &:not(.white) {
+      &:not(.white):not([disabled]) {
         background-color: $primary;
       }
 
@@ -41,15 +45,10 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
-        /* identical to box height, or 125% */
-
         display: flex;
         align-items: center;
         text-align: center;
         letter-spacing: 0.1px;
-
-        /* Neutral/neutral100 */
-
         color: $primary;
 
         &.white {

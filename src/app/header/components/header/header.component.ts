@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { STEPPER_GLOBAL_OPTIONS, StepState } from '@angular/cdk/stepper';
 import { Store } from '@ngrx/store';
 import { IAppState, ICommonState, TDataFormat, TMoneyFormat } from 'src/app/store/models';
 import { commonStateSelector } from 'src/app/store/selectors';
@@ -48,6 +48,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showStepper = false;
   public isMainPage = true;
 
+  public myStep: { s1: StepState; s2: StepState; s3: StepState } = {
+    s1: 'number',
+    s2: 'number',
+    s3: 'number',
+  };
+
   constructor(private _formBuilder: FormBuilder, private store: Store<IAppState>, private router: Router) {}
 
   ngOnInit(): void {
@@ -56,7 +62,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.showStepper = this.urlsWithStepper.includes(event.url);
-        this.isMainPage = event.url === '/main' || event.url === '/'
+        this.isMainPage = event.url === '/main' || event.url === '/';
+
+        switch (event.url) {
+          case '/main':
+          case '/':
+            this.myStep.s1 = 'number';
+            this.myStep.s2 = 'number';
+            this.myStep.s3 = 'number';
+            break;
+          case 'flight-selection':
+            this.myStep.s1 = 'edit';
+            this.myStep.s2 = 'number';
+            this.myStep.s3 = 'number';
+            break;
+          case 'passengers-info':
+            this.myStep.s1 = 'done';
+            this.myStep.s2 = 'edit';
+            this.myStep.s3 = 'number';
+            break;
+          case 'summary':
+            this.myStep.s1 = 'done';
+            this.myStep.s2 = 'done';
+            this.myStep.s3 = 'edit';
+            break;
+
+          default:
+            break;
+        }
       }
     });
   }

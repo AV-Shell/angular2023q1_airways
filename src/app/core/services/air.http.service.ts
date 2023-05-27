@@ -8,15 +8,17 @@ import * as moment from 'moment';
 const converter = (xStartDate: string, y: IFlightInfo, i: number): IFlightInfoExt => {
   {
     const [addHours, addMinutes] = y.startTime.split(':');
-    const startDateObj = moment(new Date(xStartDate))
-      .add({ hours: +addHours, minutes: +addMinutes, days: i - 3 });
-      const startDate = startDateObj.toISOString();
+    const startDateObj = moment(new Date(xStartDate)).add({ hours: +addHours, minutes: +addMinutes, days: i - 3 });
+    const startDate = startDateObj.toISOString();
+
+    const isFlight = y.isFlight && startDateObj.isAfter();
 
     const endDate = startDateObj.add({ minutes: +y.timeWay }).toISOString();
     const timeWayString = `${(y.timeWay / 60) | 0}h ${y.timeWay % 60}m`;
 
     return {
       ...y,
+      isFlight,
       startDate,
       endDate,
       timeWayString,
@@ -31,7 +33,7 @@ export class AirHttpService {
   getAirs(body: IAirRequest) {
     return this.http.post<IAirResponse>('getairs', body).pipe(
       map(x => {
-        const startDate = new Date(x.startDate).toISOString()
+        const startDate = new Date(x.startDate).toISOString();
         return {
           ...x,
           thereWay: x.thereWay.map((y, i) => converter(startDate, y, i)),

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IAirResponseExt, IFlightSearchState, TDataFormat, TMoneyFormat } from './models';
+import { IAirResponseExt, IFlightSearchState, ISelectFlightState, TDataFormat, TMoneyFormat } from './models';
 
 export const changeDataFormatValue = createAction('[Header] set data format value', props<{ value: TDataFormat }>());
 export const changeMoneyFormatValue = createAction('[Header] set money format value', props<{ value: TMoneyFormat }>());
@@ -14,3 +14,8 @@ export const getAirSearchResultSuccessfull = createAction(
 export const getAirSearchResultError = createAction('[App Effect] failed flights search result', props<{ error: string }>());
 
 export const redirectAction = createAction('[Router] redirect ');
+
+export const changeFlightSelectValue = createAction(
+  '[flight select] change flight select values',
+  props<{ values: Partial<ISelectFlightState> }>(),
+);

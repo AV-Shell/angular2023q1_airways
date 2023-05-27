@@ -1,5 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { IFlightInfoExt, IFormats } from 'src/app/store/models';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { IAirportsNames } from 'src/app/core/models/core.models';
+import { IAppState, IFlightInfoExt, IFlightSearchState, IFormats, ISelectFlightState } from 'src/app/store/models';
+import { SlickCarouselComponent } from 'ngx-slick-carousel';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectFlightSelector } from 'src/app/store/selectors';
+import { changeFlightSelectValue } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-suggestion',
@@ -7,18 +13,28 @@ import { IFlightInfoExt, IFormats } from 'src/app/store/models';
   styleUrls: ['./suggestion.component.scss'],
 })
 export class SuggestionComponent implements OnInit, OnDestroy {
-  @Input() from = false;
+  @Input() backWay = false;
+  // @Input() selected = true;
   @Input() formats: IFormats | undefined;
   @Input() value: IFlightInfoExt[] | undefined;
+  @Input() airports: IAirportsNames = { airportTo: '', airportFrom: '' };
 
   @Output() showEditForm = new EventEmitter();
 
-  initialSlide = 3;
+  @ViewChild('slickDates') slickDates!: SlickCarouselComponent;
+  @ViewChild('slickFlight') slickFlight!: SlickCarouselComponent;
 
-  imageSliderThere = {
+  public unclickable = false;
+
+  private sub!: Subscription;
+
+  public selected = true;
+  public selectedIndex = 3;
+
+  public dayInfoSliderThere = {
     slidesToShow: 5,
     slidesToScroll: 1,
-    initialSlide: this.initialSlide,
+    initialSlide: this.selectedIndex,
     infinite: false,
     draggable: false,
     arrows: true,
@@ -42,18 +58,18 @@ export class SuggestionComponent implements OnInit, OnDestroy {
         },
       },
     ],
-    asNavFor: '.there.thumbs',
+    asNavFor: '.thereWay.flightsCarousel',
   };
 
-  imagesSliderBack = {
-    ...this.imageSliderThere,
-    asNavFor: '.back.thumbs',
+  public dayInfoSliderBack = {
+    ...this.dayInfoSliderThere,
+    asNavFor: '.backWay.flightsCarousel',
   };
 
-  thumbnailsSlider = {
+  public flightInfoSliderThere = {
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: this.initialSlide,
+    initialSlide: this.selectedIndex,
     infinite: false,
     draggable: false,
     arrows: false,
@@ -63,37 +79,79 @@ export class SuggestionComponent implements OnInit, OnDestroy {
     focusOnSelect: true,
     prevArrow: '.client-thumbnails .prev-arrow',
     nextArrow: '.client-thumbnails .next-arrow',
+    // asNavFor: '.backWay.datasCarousel',
   };
 
-  slickInit(e: any) {
-    console.log('slick initialized', e);
-  }
+  public flightInfoSliderBack = {
+    ...this.flightInfoSliderThere,
+    // asNavFor: '.backWay.datasCarousel',
+  };
 
-  breakpoint(e: any) {
-    console.log('breakpoint', e);
-  }
-
-  afterChange(e: any) {
-    console.log('afterChange', e);
-  }
-
-  beforeChange(e: any) {
-    console.log('beforeChange', e);
-  }
-
-  // TODO: change to State/
-  fromText = 'Warsaw Modlin';
-  toText = 'Dublin';
+  constructor(private store: Store<IAppState>) {}
 
   ngOnInit(): void {
-    console.log();
+    console.log('ngOnInit', 'backWay', this.backWay);
+    this.sub = this.store.select(selectFlightSelector).subscribe(data => {
+      console.log(data);
+      const previousSelected = this.selected;
+
+      this.selected = this.backWay ? !!data.selectedBackWay : !!data.selectedThereWay;
+      this.selectedIndex = this.backWay ? data.selectedIndexBackWay : data.selectedIndexThereWay;
+
+      console.log('this.backWay', this.backWay);
+      console.log('this.selected', this.selected);
+      console.log('this.selectedIndex', this.selectedIndex);
+      if (previousSelected !== this.selected) {
+        this.unclickable = false;
+      }
+
+      this.dayInfoSliderThere.initialSlide = this.selectedIndex;
+      this.dayInfoSliderBack.initialSlide = this.selectedIndex;
+      this.flightInfoSliderThere.initialSlide = this.selectedIndex;
+      this.flightInfoSliderBack.initialSlide = this.selectedIndex;
+      // this.sliderNavigates();
+    });
   }
 
   ngOnDestroy(): void {
-    console.log();
+    this.sub.unsubscribe();
+  }
+
+  slickInit(e: any) {
+    // console.log('slick initialized', e);
+    // console.log('slickInit', 'backWay', this.backWay);
+    // this.sliderNavigates();
+  }
+
+  breakpoint(e: any) {
+    // console.log('breakpoint', e);
+  }
+
+  afterChange(e: { currentSlide: number }) {
+    // this.unclickable = false;
+
+    if (e.currentSlide !== this.selectedIndex) {
+      const t: Partial<ISelectFlightState> = this.backWay
+        ? {
+            selectedIndexBackWay: e.currentSlide,
+          }
+        : {
+            selectedIndexThereWay: e.currentSlide,
+          };
+      this.store.dispatch(changeFlightSelectValue({ values: t }));
+    }
+  }
+
+  beforeChange(e: { currentSlide: number }) {
+    // this.unclickable = true;
+  }
+
+  sliderNavigates() {
+    this.slickDates?.slickGoTo(this.selectedIndex);
+    this.slickFlight?.slickGoTo(this.selectedIndex);
   }
 
   get sliderClass() {
-    return `${this.from ? '.back' : '.there'} .thumbs`;
+    return `${this.backWay ? '.back' : '.there'} .thumbs`;
   }
 }

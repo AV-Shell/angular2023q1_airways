@@ -83,6 +83,10 @@
 
   .passenger-description {
     flex: 1 1 100%;
+
+    &.selected {
+      color: $primary;
+    }
   }
 
   .counter-group {
@@ -128,5 +132,68 @@
 
   @media #{$media-phone} {
     width: 100%;
+  }
+}
+
+::ng-deep .passangers-input-container {
+  .mat-mdc-option.mdc-list-item--disabled {
+    opacity: 1;
+    pointer-events: initial;
+
+    .counter-group.passengers-counter {
+      .plusminusinput {
+        font-family: 'Roboto';
+        font-style: normal;
+        margin-left: auto;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        color: $neutral-30;
+
+        &.selected {
+          color: $primary;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        &[type='number'] {
+          -moz-appearance: textfield;
+        }
+
+        & {
+          width: 1.5ch;
+          outline: 0;
+          border: 0;
+        }
+      }
+
+      .plusminusbuttons {
+        padding: 0px;
+        height: 24px;
+        width: 24px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  &.display-none {
+    display: none !important;
+  }
+
+  .display-none {
+    display: none !important;
   }
 }

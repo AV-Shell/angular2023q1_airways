@@ -9,9 +9,16 @@ import { SharedModule } from '../shared/shared.module';
 import { SuggestionComponent } from './components/suggestion/suggestion.component';
 import { FlightMinInfoComponent } from './components/flight-min-info/flight-min-info.component';
 import { FlightFullInfoComponent } from './components/flight-full-info/flight-full-info.component';
+import { CounterColorDirective } from './directives/counter-color.directive';
 
 @NgModule({
-  declarations: [FlightSelectionComponent, SuggestionComponent, FlightMinInfoComponent, FlightFullInfoComponent],
+  declarations: [
+    FlightSelectionComponent,
+    SuggestionComponent,
+    FlightMinInfoComponent,
+    FlightFullInfoComponent,
+    CounterColorDirective,
+  ],
   imports: [CommonModule, FlightSelectionRoutingModule, SharedModule, MatButtonModule, SlickCarouselModule],
 })
 export class FlightSelectionModule {}

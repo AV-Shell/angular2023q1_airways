@@ -6,12 +6,11 @@
         <span class="time">{{ startDate | date : 'HH:mm' }}</span>
         <span class="utc">{{ startDate | date : 'z' }}</span>
       </span>
-      <!-- TODO: change warsaw-->
-      <span class="city">Warsaw Modlin</span>
+      <span class="city">{{ airports.airportFrom }}</span>
     </div>
     <div class="during">
       <span class="time">{{ timeWay }}</span>
-      <img class="img" [ngClass]="{ isReturn }" width="44px" src="/assets/airplane3.svg" />
+      <img class="img" [ngClass]="{ backWay }" width="44px" src="/assets/airplane3.svg" />
       <div>
         <div *ngIf="isDirect; else elseDirect">Direct</div>
         <ng-template #elseDirect>
@@ -27,8 +26,7 @@
         <span class="utc">{{ endDate | date : 'z' }}</span>
         <span class="time">{{ endDate | date : 'HH:mm' }}</span>
       </span>
-      <!-- TODO: change warsaw-->
-      <span class="city">Dublin</span>
+      <span class="city">{{ airports.airportTo }}</span>
     </div>
     <div class="flightNo">
       <span class="field">Flight no.</span>
@@ -38,18 +36,25 @@
   <div class="delimiter" *ngIf="!selected"></div>
   <div class="flex2">
     <div class="flightInfoContainer">
-      <div class="seatsContainer" *ngIf="!selected">
-        <div class="seats">{{this.value?.available}} seats</div>
+      <div class="seatsContainer" *ngIf="!selected" appCounterColor [count]="this.value?.available" [styleName]="'background-color'">
+        <div class="seats">{{ this.value?.available }} seats</div>
         <div class="seats">available</div>
       </div>
       <div class="priceTitle" *ngIf="!selected">Price</div>
-      <div class="priceField" [ngClass]="{ selected }">{{ money | currency : currencyFormat: 'symbol-narrow'  }}</div>
+      <div class="priceField" [ngClass]="{ selected }">{{ money | currency : currencyFormat : 'symbol-narrow' }}</div>
     </div>
-    <button mat-raised-button color="primary" class="select" *ngIf="!selected; else selectedBlock">
+    <button
+      mat-raised-button
+      color="primary"
+      class="select"
+      *ngIf="!selected; else selectedBlock"
+      (click)="$event.stopPropagation(); onSelectClick()">
       <span class="selectText">Select</span>
     </button>
     <ng-template #selectedBlock>
-      <button class="edit" mat-button color="primary"><span class="editText">Edit</span></button>
+      <button class="edit" mat-button color="primary">
+        <span class="editText" (click)="$event.stopPropagation(); onEditClick()">Edit</span>
+      </button>
     </ng-template>
   </div>
 </div>

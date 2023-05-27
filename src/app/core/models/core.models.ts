@@ -6,3 +6,8 @@ export interface IAirRequest {
   startDate: string;
   passengersCount: number;
 }
+
+export interface IAirportsNames {
+  airportTo: string;
+  airportFrom: string;
+}

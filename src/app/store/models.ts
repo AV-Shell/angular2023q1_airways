@@ -41,6 +41,7 @@ export interface IAppState {
   commonState: ICommonState;
   airResponseState: IAirResponseExt;
   flightSearchState: IFlightSearchState;
+  selectFlightState: ISelectFlightState;
 }
 
 export interface IFormats {
@@ -91,4 +92,11 @@ export interface IAirResponseExt {
   startDate: string;
   thereWay: IFlightInfoExt[];
   backWay?: IFlightInfoExt[];
+}
+
+export interface ISelectFlightState {
+  selectedIndexThereWay: number;
+  selectedIndexBackWay: number;
+  selectedThereWay: IFlightInfoExt | null;
+  selectedBackWay: IFlightInfoExt | null;
 }

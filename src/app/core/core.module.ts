@@ -9,11 +9,7 @@ import { AirInterceptor } from './interceptors/air.interceptor';
 
 @NgModule({
   declarations: [NotFoundPageComponent],
-  providers: [
-    AirHttpService,
-    LocalstorageService,
-    { provide: HTTP_INTERCEPTORS, useClass: AirInterceptor, multi: true },
-  ],
+  providers: [AirHttpService, LocalstorageService, { provide: HTTP_INTERCEPTORS, useClass: AirInterceptor, multi: true }],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   exports: [NotFoundPageComponent],
 })

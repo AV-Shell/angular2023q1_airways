@@ -10,7 +10,6 @@ export class FlightMinInfoComponent {
   @Input() value: IFlightInfoExt | undefined;
   @Input() formats: IFormats | undefined;
   @Input() selected = false;
-  // @Input() unaviable = false;
 
   get money() {
     return this.value?.price[this.formats?.moneyField ?? 'usd'];

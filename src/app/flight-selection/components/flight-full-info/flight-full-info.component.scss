@@ -29,7 +29,7 @@
     border-left: 2px dashed $secondary-40;
 
     @media #{$media-mobile} {
-      border-left: 0px ;
+      border-left: 0px;
       border-top: 2px dashed $secondary-40;
     }
   }
@@ -39,6 +39,10 @@
     padding-top: 27px;
     padding-bottom: 27px;
     @include flex(flex, row, space-between, center, nowrap, 20px);
+
+    @media #{$media-mobile} {
+      align-self: stretch;
+    }
 
     @media #{$media-phone} {
       align-self: stretch;
@@ -56,7 +60,7 @@
 
     .during {
       @include flex(flex, column, space-between, stretch, nowrap, 4px);
-      flex: 1 1 400px;
+      flex: 1 1 100px;
       align-self: stretch;
       position: relative;
       text-align: center;
@@ -67,8 +71,8 @@
       color: black;
 
       @media #{$media-phone} {
-          flex-basis: 0%;
-          gap: 40px;
+        flex-basis: 0%;
+        gap: 40px;
       }
 
       .img {
@@ -77,7 +81,7 @@
         top: 50%;
         transform: translate(-50%, -70%) scaleX(-1);
 
-        &.isReturn {
+        &.backWay {
           transform: translate(-50%, -70%);
         }
       }
@@ -119,11 +123,15 @@
           color: $neutral-30;
         }
       }
+
+      .city {
+        white-space: initial;
+      }
     }
 
     .flightNo {
-      @include flex(flex, row, flex-start, center, nowrap, 16px);
-
+      @include flex(flex, row, flex-start, center, wrap, 16px);
+      flex: 1 1;
       white-space: nowrap;
       font-size: 14px;
       line-height: 20px;
@@ -145,6 +153,10 @@
     padding-bottom: 15px;
     @include flex(flex, row, space-between, center, nowrap, 32px);
 
+    @media #{$media-tablets} {
+      align-self: stretch;
+    }
+
     .flightInfoContainer {
       text-align: right;
       flex: 1 1 100%;
@@ -152,7 +164,6 @@
 
       .seatsContainer {
         padding: 4px 8px;
-        background-color: $yellow;
         font-size: 12px;
         line-height: 16px;
         color: $neutral-20;

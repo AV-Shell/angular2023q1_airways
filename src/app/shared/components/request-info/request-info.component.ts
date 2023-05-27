@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IFlightSearchState } from 'src/app/store/models';
 
 @Component({
   selector: 'app-request-info',
@@ -7,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class RequestInfoComponent {
   @Input() showEdit = false;
+  @Input() flightSearchState: IFlightSearchState | null = null;
 
   @Output() showEditForm = new EventEmitter();
 
@@ -14,12 +16,7 @@ export class RequestInfoComponent {
     this.showEditForm.emit();
   }
 
-  //TODO: change
-  destinationFrom = 'Dublin';
-  destinationTo = 'Warsaw Modlin';
-  twoway = true;
-  dateFrom = 'Thu, 27 May 2023 14:22:18 GMT';
-  dateTo = 'Thu, 25 May 2023 14:22:18 GMT';
-  persons = 111;
-  
+  get persons() {
+    return this.flightSearchState ? this.flightSearchState.adults + this.flightSearchState.child + this.flightSearchState.infants : 0;
+  }
 }

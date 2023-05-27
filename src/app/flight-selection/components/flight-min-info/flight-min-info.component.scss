@@ -2,9 +2,11 @@
 
 :host {
   @include flex(flex, column, flex-start, center, nowrap, 0px);
-  padding: 4px 0px;
-  flex: 1 1 100%;
+  padding: 4px 0px 0px;
   background-color: $neutral-100;
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2px;
+  height: 70px;
 
   .date {
     font-family: 'Roboto';
@@ -13,6 +15,7 @@
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.1px;
+    transition: all 0.2s ease-in-out;
 
     color: $secondary;
 
@@ -37,6 +40,7 @@
     font-weight: 100;
     font-size: 12px;
     line-height: 12px;
+    transition: all 0.2s ease-in-out;
 
     color: $neutral-30;
 
@@ -61,6 +65,7 @@
 
     color: $primary;
     margin-top: 6px;
+    transition: all 0.2s ease-in-out;
 
     &.unaviable {
       color: $secondary-40;
@@ -70,7 +75,7 @@
       margin-top: 0px;
       font-weight: 700;
       font-size: 30px;
-      line-height: 36px;  
+      line-height: 36px;
     }
 
     &.selected.unaviable {
@@ -94,5 +99,10 @@
     box-sizing: border-box;
     width: 100%;
     border: 2px solid transparent;
+    background-color: transparent;
+
+    &.unaviable {
+      border-color: transparent;
+    }
   }
 }

@@ -4,4 +4,11 @@
 <img *ngIf="unaviable && selected" class="img-unaviable" [ngClass]="{selected}" src="/assets/flight_unaviable_s.svg" />
 
 <span *ngIf="!unaviable" class="money" [ngClass]="{selected }">{{ money | currency : currencyFormat : 'symbol-narrow' }}</span>
-<div *ngIf="selected" [ngClass]="{ unaviable, selected }" class="border"></div>
+<div
+  *ngIf="selected"
+  [ngClass]="{ unaviable, selected }"
+  class="border"
+  appCounterColor
+  [count]="this.value?.available"
+  [styleName]="'border-color'">
+</div>

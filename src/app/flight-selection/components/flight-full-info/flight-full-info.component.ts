@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
-import * as moment from 'moment';
-import { IFlightInfoExt, IFormats } from 'src/app/store/models';
+import { Store } from '@ngrx/store';
+import { IAirportsNames } from 'src/app/core/models/core.models';
+import { changeFlightSelectValue } from 'src/app/store/actions';
+import { IAppState, IFlightInfoExt, IFormats, ISelectFlightState } from 'src/app/store/models';
 
 @Component({
   selector: 'app-flight-full-info',
@@ -8,40 +10,25 @@ import { IFlightInfoExt, IFormats } from 'src/app/store/models';
   styleUrls: ['./flight-full-info.component.scss'],
 })
 export class FlightFullInfoComponent {
-  @Input() isReturn = false;
+  @Input() backWay = false;
   @Input() selected = false;
-  // @Input() unaviable = false;
+  @Input() index!: number;
 
   @Input() value: IFlightInfoExt | undefined;
   @Input() formats: IFormats | undefined;
+  @Input() airports: IAirportsNames = { airportTo: '', airportFrom: '' };
+
+  constructor(private store: Store<IAppState>) {}
 
   get startDate() {
     return this.value?.startDate;
-    // if (this.value?.startDate && this.value?.startTime) {
-    //   const [addHours, addMinutes] = this.value.startTime.split(':');
-
-    //   return moment(this.value.startDate).add({ hours: +addHours, minutes: +addMinutes }).toLocaleString();
-    // }
-    // return '';
   }
 
   get endDate() {
     return this.value?.endDate;
-    // if (this.value?.startDate && this.value?.startTime && this.value?.timeWay) {
-    //   const [addHours, addMinutes] = this.value.startTime.split(':');
-
-    //   return moment(this.value.startDate)
-    //     .add({ hours: +addHours, minutes: +addMinutes + +this.value.timeWay })
-    //     .toLocaleString();
-    // }
-    // return '';
   }
   get timeWay() {
     return this.value?.timeWayString;
-    // if (this.value?.timeWay) {
-    //   return `${(this.value?.timeWay / 60) | 0}h ${this.value?.timeWay % 60}m`;
-    // }
-    // return '';
   }
 
   get isDirect() {
@@ -62,5 +49,37 @@ export class FlightFullInfoComponent {
 
   get unaviable() {
     return !this.value?.isFlight;
+  }
+
+  onSelectClick() {
+    if (this.value) {
+      const t: Partial<ISelectFlightState> = this.backWay
+        ? {
+            selectedBackWay: this.value,
+            selectedIndexBackWay: this.index,
+          }
+        : {
+            selectedIndexThereWay: this.index,
+            selectedThereWay: this.value,
+          };
+      this.store.dispatch(changeFlightSelectValue({ values: t }));
+    }
+  }
+
+  onEditClick() {
+    console.log('onEditClick');
+    if (this.value) {
+      console.log('onEditClick inside');
+      const t: Partial<ISelectFlightState> = this.backWay
+        ? {
+            selectedBackWay: null,
+            selectedIndexBackWay: this.index,
+          }
+        : {
+            selectedIndexThereWay: this.index,
+            selectedThereWay: null,
+          };
+      this.store.dispatch(changeFlightSelectValue({ values: t }));
+    }
   }
 }

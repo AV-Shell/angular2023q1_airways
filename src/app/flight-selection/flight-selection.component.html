@@ -1,17 +1,35 @@
-<app-request-info [showEdit]="true" (showEditForm)="onShowEditForm()"></app-request-info>
+<app-request-info [showEdit]="true" [flightSearchState]="flightSearch" (showEditForm)="onShowEditForm()"></app-request-info>
 <div class="contentWrapper">
   <div class="content">
-    <form *ngIf="showEditForm" class="edit-form"></form>
+    <form *ngIf="showEditForm" class="edit-form">
+      <button type="button" (click)="newSearchDataSubmit()"> new search data</button>
+    </form>
+
     <ng-container *ngIf="true">
-      <app-suggestion class="there" [value]="airResponse?.thereWay" [formats]="formats"></app-suggestion>
-      <app-suggestion class="back" *ngIf="airResponse?.backWay" [from]="true" [value]="airResponse?.backWay" [formats]="formats"> </app-suggestion>
-      <div class="buttons-wrapper">
-        <button class="button white" mat-button color="primary" (click)="backClick()">
-          <span class="button-text">Back</span>
-        </button>
-        <button class="button" mat-raised-button color="primary" (click)="continueClick()">
-          <span class="button-text white">Continue</span>
-        </button>
+      <div class="page">
+        <app-suggestion
+          class="there flight-suggestion"
+          [value]="airResponse?.thereWay"
+          [formats]="formats"
+          [airports]="airportsThereWay">
+        </app-suggestion>
+        <app-suggestion
+          class="back flight-suggestion"
+          *ngIf="airResponse?.backWay"
+          [backWay]="true"
+          [value]="airResponse?.backWay"
+          [formats]="formats"
+          [airports]="airportsBackWay">
+          >
+        </app-suggestion>
+        <div class="buttons-wrapper">
+          <button class="button white" mat-button color="primary" (click)="backClick()">
+            <span class="button-text">Back</span>
+          </button>
+          <button class="button" mat-raised-button color="primary" (click)="continueClick()" [disabled]="continueDisabled">
+            <span class="button-text white">Continue</span>
+          </button>
+        </div>
       </div>
     </ng-container>
   </div>

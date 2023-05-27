@@ -1,64 +1,71 @@
 <ng-container *ngIf="value">
   <div class="flight-info">
-    <img [ngClass]="{ img: true, from: from }" src="/assets/airplane1.svg" />
-    <span class="text">{{ fromText }}</span>
+    <img [ngClass]="{ img: true, backWay }" src="/assets/airplane1.svg" />
+    <span class="text">{{ airports.airportFrom }}</span>
     <span class="text">to</span>
-    <span class="text">{{ toText }}</span>
+    <span class="text">{{ airports.airportTo }}</span>
   </div>
 
-  <!-- <div class="mins">
-    <app-flight-min-info [value]="value[0]" [formats]="formats"></app-flight-min-info>
-    <app-flight-min-info [value]="value[1]" [formats]="formats"></app-flight-min-info>
-    <app-flight-min-info [value]="value[2]" [formats]="formats" [selected]="true"></app-flight-min-info>
-    <app-flight-min-info [value]="value[3]" [formats]="formats"></app-flight-min-info>
-    <app-flight-min-info [value]="value[4]" [formats]="formats"></app-flight-min-info>
-  </div>
-  <app-flight-full-info class="full" [formats]="formats" [value]="value[0]"></app-flight-full-info>
-  <app-flight-full-info class="full" [formats]="formats" [value]="value[1]" [isReturn]="true" [selected]="true"></app-flight-full-info>
-  <app-flight-full-info class="full" [formats]="formats" [value]="value[2]"></app-flight-full-info> -->
-
-  <!-- <ngx-slick-carousel
-    class="carousel flight-carousel1"
-    #slickModal="slick-carousel"
-    [config]="slideConfig1"
-    (init)="slickInit($event)"
-    (breakpoint)="breakpoint($event)"
-    (afterChange)="afterChange($event)"
-    (beforeChange)="beforeChange($event)">
-    <div ngxSlickItem *ngFor="let slide of value; let i = index" class="slide">
-      <app-flight-min-info (click)="slickModal.slickGoTo(i)" [value]="slide" [formats]="formats"></app-flight-min-info>
-    </div>
-  </ngx-slick-carousel>
-  <ngx-slick-carousel
-    class="carousel flight-carousel2"
-    #slickModal="slick-carousel"
-    [config]="slideConfig2"
-    (init)="slickInit($event)"
-    (breakpoint)="breakpoint($event)"
-    (afterChange)="afterChange($event)"
-    (beforeChange)="beforeChange($event)">
-    <app-flight-full-info *ngFor="let slide of value" class="full" [formats]="formats" [value]="slide"></app-flight-full-info>
-  </ngx-slick-carousel> -->
-
-  <div class="feedback-slides">
-    <div class="client-feedback">
-      <ngx-slick-carousel class="carousel feedback" #slickModal="slick-carousel" [config]="from ? imagesSliderBack : imageSliderThere">
-        <div ngxSlickItem *ngFor="let slide of value; let i = index" class="slide">
-          <app-flight-min-info (click)="slickModal.slickGoTo(i)" [value]="slide" [formats]="formats"></app-flight-min-info>
-        </div>
-      </ngx-slick-carousel>
-    </div>
-  </div>
-
-  <div class="client-thumbnails">
+  <div [ngClass]="{ hidden1: selected }">
     <ngx-slick-carousel
-      class="carousel thumbs"
-      [ngClass]="{ back: from, there: !from }"
-      #slickModal="slick-carousel"
-      [config]="thumbnailsSlider">
-      <div ngxSlickItem *ngFor="let slide of value; let i = index" class="slide">
-        <app-flight-full-info class="full" [formats]="formats" [value]="slide"></app-flight-full-info>
+      (init)="slickInit($event)"
+      (breakpoint)="breakpoint($event)"
+      (afterChange)="afterChange($event)"
+      (beforeChange)="beforeChange($event)"
+      [ngClass]="{ backWay, thereWay: !backWay, unclickable }"
+      class="datasCarousel"
+      #slickDates="slick-carousel"
+      [config]="backWay ? dayInfoSliderBack : dayInfoSliderThere">
+      <div ngxSlickItem *ngFor="let slide of value; let i = index" class="slide" (click)="slickDates.slickGoTo(i)">
+        <app-flight-min-info
+          [value]="slide"
+          [formats]="formats"
+          [selected]="selectedIndex === i"
+          [ngClass]="{ dataMini: true, selected: selectedIndex === i }"></app-flight-min-info>
+      </div>
+    </ngx-slick-carousel>
+
+    <ngx-slick-carousel
+      class="flightsCarousel"
+      [ngClass]="{ backWay, thereWay: !backWay, unclickable }"
+      #slickFlight="slick-carousel"
+      [config]="backWay ? flightInfoSliderBack : flightInfoSliderThere">
+      <div ngxSlickItem *ngFor="let slide of value; let i = index">
+        <app-flight-full-info
+          [selected]="selected && selectedIndex === i"
+          [ngClass]="{ hidden: selected && selectedIndex !== i }"
+          class="full"
+          [formats]="formats"
+          [value]="slide"
+          [index]="i"
+          [airports]="airports"
+          [backWay]="backWay">
+        </app-flight-full-info>
       </div>
     </ngx-slick-carousel>
   </div>
+
+  <div [ngClass]="{ hidden1: !selected }">
+    <app-flight-full-info
+      [selected]="selected"
+      class="full"
+      [formats]="formats"
+      [value]="value[selectedIndex]"
+      [index]="selectedIndex"
+      [airports]="airports"
+      [backWay]="backWay">
+    </app-flight-full-info>
+  </div>
+  <!-- <ng-template #selectedItem>
+    <app-flight-full-info
+      [selected]="selected"
+      class="full"
+      [formats]="formats"
+      [value]="value[selectedIndex]"
+      [index]="selectedIndex"
+      [airports]="airports"
+      [backWay]="backWay">
+    </app-flight-full-info>
+  </ng-template>
+</ng-container> -->
 </ng-container>
