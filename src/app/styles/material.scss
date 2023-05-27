@@ -1,0 +1,17 @@
+@import 'variables.scss';
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused {
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: green;
+  }
+
+  .mdc-floating-label {
+    color: green;
+  }
+}
+
+.mat-mdc-text-field-wrapper{
+  background-color: $secondary-90 !important;
+}
