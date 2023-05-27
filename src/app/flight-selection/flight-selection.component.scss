@@ -1,0 +1,65 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  display: block;
+  background-color: $neutral-80;
+  min-height: 100%;
+  flex-grow: 1;
+}
+
+.content {
+  position: relative;
+  padding: 48px 0 20px 0;
+
+  .edit-form {
+    @include flex(flex, row, space-evenly, center, wrap, 20px);
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    top: 0;
+    min-height: 96px;
+    background: $neutral-100;
+    background-color: red;
+    padding: 20px;
+  }
+
+  .buttons-wrapper {
+    @include flex(flex, row, flex-end, center, nowrap, 40px);
+
+    .button {
+      width: 126px;
+      height: 60px;
+
+      &:not(.white) {
+        background-color: $primary;
+      }
+
+      .button-text {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        /* identical to box height, or 125% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+
+        /* Neutral/neutral100 */
+
+        color: $primary;
+
+        &.white {
+          color: $neutral-100;
+        }
+
+        &.white {
+          color: $neutral-100;
+        }
+      }
+    }
+  }
+}

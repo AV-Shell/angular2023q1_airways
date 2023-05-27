@@ -1,7 +1,12 @@
 @import 'src/app/styles/common.scss';
 
 :host {
-  display: block;
+  display: flex;
+  align-items: center;
+}
+
+.contentWrapper {
+  flex: 1 1 100%;
 }
 
 .bookingFormContentWrapper {

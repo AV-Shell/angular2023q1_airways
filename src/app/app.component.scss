@@ -1,8 +1,7 @@
-@import './../app/styles/variables.scss';
+@import 'src/app/styles/common.scss';
 
 $header-height: 88px;
 $footer-height: 92px;
-
 
 .header {
   background-color: aquamarine;
@@ -11,10 +10,12 @@ $footer-height: 92px;
 
 .main {
   min-height: calc(100vh - $header-height - $footer-height);
+  display: flex;
+  flex-direction: column;
 }
 
 .footer {
   background-color: $neutral-80;
   min-height: $footer-height;
+  border-top: 1px solid $secondary-40;
 }
-

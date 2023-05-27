@@ -1,0 +1,23 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  @include flex(flex, column, flex-start, initial, nowrap, 8px);
+
+  .flight-info {
+    @include flex(flex, row, flex-start, center, nowrap, 12px);
+    height: 44px;
+
+    .img.from {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .mins {
+    @include flex(flex, row, center, center, nowrap, 12px);
+  }
+
+  .full {
+    margin-top: 9px;
+    width: 100%;
+  }
+}
