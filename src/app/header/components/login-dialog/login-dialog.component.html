@@ -1,0 +1,36 @@
+<div mat-dialog-content class="dialog" id="logindialog">
+  <mat-tab-group dynamicHeight class="login-tab-label">
+    <mat-tab label="Log in">
+      <div class="dialog-content">
+        <button mat-stroked-button class="social-media-button">
+          <img class="social-media-button-icon" src="/assets/google_24px.svg" />Continue with Google
+        </button>
+        <button mat-stroked-button class="social-media-button">
+          <img class="social-media-button-icon" src="/assets/fb-icon.svg" />Continue with Facebook
+        </button>
+
+        <div class="divider-contaiter">
+          <mat-divider class="divider"></mat-divider>
+          <div class="divider-text">or log in with your email</div>
+        </div>
+        <app-login-form></app-login-form>
+      </div>
+    </mat-tab>
+    <mat-tab label="Sign up">
+      <div class="dialog-content">
+        <button mat-stroked-button class="social-media-button">
+          <img class="social-media-button-icon" src="/assets/google_24px.svg" />Continue with Google
+        </button>
+        <button mat-stroked-button class="social-media-button">
+          <img class="social-media-button-icon" src="/assets/fb-icon.svg" />Continue with Facebook
+        </button>
+
+        <div class="divider-contaiter">
+          <mat-divider class="divider"></mat-divider>
+          <div class="divider-text">or sign up with your email</div>
+        </div>
+        <app-registration-form></app-registration-form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

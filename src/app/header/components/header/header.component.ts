@@ -7,6 +7,8 @@ import { commonStateSelector } from 'src/app/store/selectors';
 import { Observable, Subscription } from 'rxjs';
 import { changeDataFormatValue, changeMoneyFormatValue } from 'src/app/store/actions';
 import { NavigationEnd, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,9 @@ import { NavigationEnd, Router } from '@angular/router';
   ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  name = 'Lena';
+  animal!: string;
+
   step = 0;
 
   firstFormGroup = this._formBuilder.group({
@@ -48,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showStepper = false;
   public isMainPage = true;
 
-  constructor(private _formBuilder: FormBuilder, private store: Store<IAppState>, private router: Router) {}
+  constructor(public dialog: MatDialog, private _formBuilder: FormBuilder, private store: Store<IAppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.commonState = this.store.select(commonStateSelector);
@@ -56,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.showStepper = this.urlsWithStepper.includes(event.url);
-        this.isMainPage = event.url === '/main' || event.url === '/'
+        this.isMainPage = event.url === '/main' || event.url === '/';
       }
     });
   }
@@ -80,5 +85,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onChangeMoneyFormat(data: { value: TMoneyFormat }) {
     this.store.dispatch(changeMoneyFormatValue({ value: data.value }));
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoginDialogComponent, {
+      data: { name: this.name, animal: this.animal },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
   }
 }
