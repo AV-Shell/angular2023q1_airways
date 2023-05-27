@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { airports } from 'src/constants';
+import { airports } from 'src/app/constants/airports';
 
 @Component({
   selector: 'app-search-form',

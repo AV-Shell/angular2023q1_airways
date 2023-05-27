@@ -82,7 +82,7 @@
   display: flex;
 
   .passenger-description {
-    flex: 1 1 100%
+    flex: 1 1 100%;
   }
 
   .counter-group {
@@ -92,8 +92,6 @@
     gap: 8px;
   }
 }
-
-
 
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
   margin-left: 62px;
@@ -132,38 +130,3 @@
     width: 100%;
   }
 }
-
-// /* To change mat form field border color */
-// :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//   color:green;
-// }
-// /* To change mat form field border color on focus */
-// :host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
-//   color: green;
-// }
-
-// ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused {
-//   .mdc-notched-outline__leading,
-//   .mdc-notched-outline__notch,
-//   .mdc-notched-outline__trailing {
-//     border-color: green;
-//   }
-
-//   .mdc-floating-label {
-//     color: green;
-//   }
-// }
-
-// ::ng-deep
-//   .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
-//   .mdc-notched-outline__leading,
-// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
-// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-//   border-color: red;
-// }
-
-// ::ng-deep.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
-// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
-// .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-//   border-color: yellow;
-// }
