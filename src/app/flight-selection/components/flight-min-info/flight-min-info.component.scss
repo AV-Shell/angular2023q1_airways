@@ -1,0 +1,98 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  @include flex(flex, column, flex-start, center, nowrap, 0px);
+  padding: 4px 0px;
+  flex: 1 1 100%;
+  background-color: $neutral-100;
+
+  .date {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+
+    color: $secondary;
+
+    &.unaviable {
+      color: $secondary-40;
+    }
+
+    &.selected {
+      color: $primary;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    &.selected.unaviable {
+      color: $neutral-30;
+    }
+  }
+
+  .dayOfWeek {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 100;
+    font-size: 12px;
+    line-height: 12px;
+
+    color: $neutral-30;
+
+    &.unaviable {
+      color: $secondary-40;
+    }
+
+    &.selected {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: $neutral-30;
+    }
+  }
+
+  .money {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+
+    color: $primary;
+    margin-top: 6px;
+
+    &.unaviable {
+      color: $secondary-40;
+    }
+
+    &.selected {
+      margin-top: 0px;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 36px;  
+    }
+
+    &.selected.unaviable {
+      color: $neutral-30;
+    }
+  }
+
+  .img-unaviable {
+    margin-top: 9px;
+    width: 18px;
+    height: 18px;
+
+    &.selected {
+      width: 30px;
+      height: 30px;
+      margin-top: 0px;
+    }
+  }
+
+  .border {
+    box-sizing: border-box;
+    width: 100%;
+    border: 2px solid transparent;
+  }
+}

@@ -1,0 +1,30 @@
+<div class="info-container contentWrapper">
+  <div class="destination-container">
+    <span class="destination">{{ destinationFrom }}</span>
+    <img *ngIf="twoway; else elseBlock" class="img-responsive" src="/assets/twowayicon.svg" />
+    <ng-template #elseBlock>
+      <img class="img-responsive" src="/assets/onewayicon.svg" />
+    </ng-template>
+    <span class="destination">{{ destinationTo }}</span>
+  </div>
+  <div class="dates-passengers-info-container">
+    <span *ngIf="twoway; else elseBlock" class="info-text">Return</span>
+    <ng-template #elseBlock>
+      <span class="info-text">One-way</span>
+    </ng-template>
+    <div class="devider"></div>
+    <div class="dates-container">
+      <span class="info-text">{{ dateTo | date : 'MMM d' }}</span>
+      <ng-container *ngIf="twoway">
+        <span class="info-text">-</span>
+        <span class="info-text">{{ dateFrom | date : 'MMM d' }}</span>
+      </ng-container>
+    </div>
+    <div class="devider"></div>
+    <span class="persons-info">
+      <span class="info-text">{{ persons }}</span>
+      <img class="img-persons" src="/assets/persons.svg" />
+    </span>
+  </div>
+  <button class="edit-button" *ngIf="showEdit" mat-button color="primary" (click)="editClick()"><span class="edit-button-text">Edit</span></button>
+</div>

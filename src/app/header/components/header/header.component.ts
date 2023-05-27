@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     { value: 'YYYY/MM/DD', selected: true },
   ];
 
-  moneys = ['EUR', 'USA', 'RUB', 'PLN'];
+  moneys: Array<TMoneyFormat> = ['EUR', 'USD', 'RUB', 'PLN'];
 
   public commonState!: Observable<ICommonState>;
 

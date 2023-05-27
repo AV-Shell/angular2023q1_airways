@@ -1,0 +1,20 @@
+<ng-container *ngIf="value">
+  <div class="flight-info">
+    <img [ngClass]="{ img: true, from: from }" src="/assets/airplane1.svg" />
+    <span class="text">{{ fromText }}</span>
+    <span class="text">to</span>
+    <span class="text">{{ toText }}</span>
+  </div>
+
+  <div class="mins">
+    <app-flight-min-info [value]="value[0]" [formats]="formats" [unaviable]="true"></app-flight-min-info>
+    <app-flight-min-info [value]="value[1]" [formats]="formats" [unaviable]="true"></app-flight-min-info>
+    <app-flight-min-info [value]="value[2]" [formats]="formats" [selected]="true" [unaviable]="true"></app-flight-min-info>
+    <app-flight-min-info [value]="value[3]" [formats]="formats"></app-flight-min-info>
+    <app-flight-min-info [value]="value[4]" [formats]="formats"></app-flight-min-info>
+  </div>
+  <app-flight-full-info class="full"  [formats]="formats" [value]="value[0]"></app-flight-full-info>
+  <app-flight-full-info class="full"  [formats]="formats" [value]="value[1]" [isReturn]="true" [selected]="true"></app-flight-full-info>
+  <app-flight-full-info class="full"  [formats]="formats" [value]="value[2]" [unaviable]="true"></app-flight-full-info>
+
+</ng-container>
