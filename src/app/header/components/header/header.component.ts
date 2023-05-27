@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Store } from '@ngrx/store';
 import { IAppState, ICommonState, TDataFormat, TMoneyFormat } from 'src/app/store/models';
 import { commonStateSelector } from 'src/app/store/selectors';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { changeDataFormatValue, changeMoneyFormatValue } from 'src/app/store/actions';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ import { changeDataFormatValue, changeMoneyFormatValue } from 'src/app/store/act
     },
   ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   step = 0;
 
   firstFormGroup = this._formBuilder.group({
@@ -36,20 +37,42 @@ export class HeaderComponent implements OnInit {
     { value: 'YYYY/MM/DD', selected: true },
   ];
 
+  urlsWithStepper = ['/flight-selection'];
+
   moneys: Array<TMoneyFormat> = ['EUR', 'USD', 'RUB', 'PLN'];
 
   public commonState!: Observable<ICommonState>;
 
-  constructor(private _formBuilder: FormBuilder, private store: Store<IAppState>) {}
+  private sub!: Subscription;
+
+  public showStepper = false;
+  public isMainPage = true;
+
+  constructor(private _formBuilder: FormBuilder, private store: Store<IAppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.commonState = this.store.select(commonStateSelector);
+
+    this.sub = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showStepper = this.urlsWithStepper.includes(event.url);
+        this.isMainPage = event.url === '/main' || event.url === '/'
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  onLogoClick() {
+    this.router.navigate(['/main']);
   }
 
   //TODO:
   log(data: unknown) {
-    console.log('this step', this.step);
-    console.log(data);
+    // console.log('this step', this.step);
+    // console.log(data);
   }
 
   onChangeDataFormat(data: { value: TDataFormat }) {

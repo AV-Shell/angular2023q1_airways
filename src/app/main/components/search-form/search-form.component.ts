@@ -107,6 +107,7 @@ export class SearchFormComponent implements OnInit {
       searchTo: value.to,
       end: value.end.toString(),
       start: value.start.toString(),
+      error: '',
     };
 
     this.store.dispatch(changeFlightSearchValue({ value: stateValues }));

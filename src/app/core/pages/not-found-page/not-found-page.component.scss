@@ -1,0 +1,26 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 27px;
+  width: 310px;
+  height: 80px;
+  position: absolute;
+  left: calc(50vw - 155px);
+  top: calc(50vh - 40px);
+
+  .svgContainer {
+    width: 100px;
+    flex-shrink: 0;
+  }
+
+  .textContainer {
+    flex-shrink: 1;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    color: $primary;
+  }
+}

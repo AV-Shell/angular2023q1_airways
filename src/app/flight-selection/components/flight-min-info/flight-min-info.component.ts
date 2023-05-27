@@ -21,6 +21,6 @@ export class FlightMinInfoComponent {
   }
 
   get unaviable() {
-    return this.value?.isFlight;
+    return !this.value?.isFlight;
   }
 }

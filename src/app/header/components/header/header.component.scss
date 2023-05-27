@@ -2,18 +2,35 @@
 
 :host {
   display: flex;
-  align-items: center;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-direction: column;
 
   .app-header {
+    padding-top: 8px;
+    padding-bottom: 8px;
     flex: 1 1 100%;
     @include flex(flex, row, space-between, center, wrap, 14px);
 
     .info-container {
-      flex: 1 1 600px;
+      flex: 1 1 200px;
       @include flex(flex, row, flex-start, center, nowrap, 14px);
 
       .stepper {
         flex: 1 1 100%;
+      }
+
+      .else-stepper {
+        white-space: nowrap;
+        padding: 8px 16px;
+        flex: 0 0;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+        color: $neutral-100;
       }
 
       @media #{$media-phone} {

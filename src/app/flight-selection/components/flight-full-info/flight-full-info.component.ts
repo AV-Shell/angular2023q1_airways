@@ -16,29 +16,32 @@ export class FlightFullInfoComponent {
   @Input() formats: IFormats | undefined;
 
   get startDate() {
-    if (this.value?.startDate && this.value?.startTime) {
-      const [addHours, addMinutes] = this.value.startTime.split(':');
+    return this.value?.startDate;
+    // if (this.value?.startDate && this.value?.startTime) {
+    //   const [addHours, addMinutes] = this.value.startTime.split(':');
 
-      return moment(this.value.startDate).add({ hours: +addHours, minutes: +addMinutes }).toLocaleString();
-    }
-    return '';
+    //   return moment(this.value.startDate).add({ hours: +addHours, minutes: +addMinutes }).toLocaleString();
+    // }
+    // return '';
   }
 
   get endDate() {
-    if (this.value?.startDate && this.value?.startTime && this.value?.timeWay) {
-      const [addHours, addMinutes] = this.value.startTime.split(':');
+    return this.value?.endDate;
+    // if (this.value?.startDate && this.value?.startTime && this.value?.timeWay) {
+    //   const [addHours, addMinutes] = this.value.startTime.split(':');
 
-      return moment(this.value.startDate)
-        .add({ hours: +addHours, minutes: +addMinutes + +this.value.timeWay })
-        .toLocaleString();
-    }
-    return '';
+    //   return moment(this.value.startDate)
+    //     .add({ hours: +addHours, minutes: +addMinutes + +this.value.timeWay })
+    //     .toLocaleString();
+    // }
+    // return '';
   }
   get timeWay() {
-    if (this.value?.timeWay) {
-      return `${(this.value?.timeWay / 60) | 0}h ${this.value?.timeWay % 60}m`;
-    }
-    return '';
+    return this.value?.timeWayString;
+    // if (this.value?.timeWay) {
+    //   return `${(this.value?.timeWay / 60) | 0}h ${this.value?.timeWay % 60}m`;
+    // }
+    // return '';
   }
 
   get isDirect() {
@@ -58,6 +61,6 @@ export class FlightFullInfoComponent {
   }
 
   get unaviable() {
-    return this.value?.isFlight;
+    return !this.value?.isFlight;
   }
 }

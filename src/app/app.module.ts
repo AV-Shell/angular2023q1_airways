@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { airResponseReducer, commonReducer, flightSearchReducer } from './store/reducers';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
+import { CoreModule } from './core/core.module';
+import { AirEffects } from './store/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +35,7 @@ import { FooterModule } from './footer/footer.module';
       },
     ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AirEffects]),
     StoreRouterConnectingModule.forRoot(),
     BrowserAnimationsModule,
     TuiRootModule,
@@ -41,6 +43,7 @@ import { FooterModule } from './footer/footer.module';
     TuiAlertModule,
     HeaderModule,
     FooterModule,
+    CoreModule,
   ],
   providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
   bootstrap: [AppComponent],

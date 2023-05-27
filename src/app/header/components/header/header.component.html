@@ -1,11 +1,16 @@
 <header class="contentWrapper app-header">
   <div class="info-container">
-    <img class="img-responsive" src="/assets/logo.svg" />
-    <mat-stepper [linear]="true" #stepper [selectedIndex]="1" (selectionChange)="log($event)" class="stepper">
+    <img class="img-responsive" src="/assets/logo.svg" (click)="onLogoClick()"/>
+    <mat-stepper *ngIf="showStepper; else elseStepper"   [linear]="true" #stepper [selectedIndex]="1" (selectionChange)="log($event)" class="stepper">
       <mat-step label="Flights"> </mat-step>
       <mat-step label="Passengers"> </mat-step>
       <mat-step label="Review & Payment"> </mat-step>
     </mat-stepper>
+
+    <ng-template #elseStepper>
+      <div class="else-stepper">Book flights</div>
+    </ng-template>
+
   </div>
   <div class="controls-container">
     <div class="group-container">

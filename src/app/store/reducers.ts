@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './actions';
 import { commonInitialState, flightSearchInitialState, responseInitialState } from './state';
-import { ICommonState, IFlightSearchState, TMoneyField, TMoneyFormat } from './models';
+import { IAirResponseExt, ICommonState, IFlightSearchState, TMoneyField, TMoneyFormat } from './models';
 
 function getMoneyField(f: TMoneyFormat): TMoneyField {
   switch (f) {
@@ -34,6 +34,25 @@ export const flightSearchReducer = createReducer(
       ...value,
     }),
   ),
+  on(
+    actions.getAirSearchResultError,
+    (state, { error }): IFlightSearchState => ({
+      ...state,
+      error,
+    }),
+  ),
 );
 
-export const airResponseReducer = createReducer(responseInitialState);
+export const airResponseReducer = createReducer(
+  responseInitialState,
+  on(actions.changeFlightSearchValue, (): null => {
+    return null;
+  }),
+  on(
+    actions.getAirSearchResultSuccessfull,
+    (state, { result }): IAirResponseExt => ({
+      ...state,
+      ...result,
+    }),
+  ),
+);

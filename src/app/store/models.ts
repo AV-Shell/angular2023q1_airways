@@ -23,6 +23,7 @@ export interface IFlightSearchState {
   codeTo: string;
   start: string;
   end: string;
+  error: string;
 }
 
 export interface IFlightSearchFormSubmit {
@@ -78,6 +79,8 @@ export interface IFlightInfo {
 
 export interface IFlightInfoExt extends IFlightInfo {
   startDate: string;
+  endDate: string;
+  timeWayString: string;
 }
 
 export interface IAirResponseExt {
@@ -88,13 +91,4 @@ export interface IAirResponseExt {
   startDate: string;
   thereWay: IFlightInfoExt[];
   backWay?: IFlightInfoExt[];
-}
-
-export interface IAirRequest {
-  from: string;
-  to: string;
-  way: string;
-  endDate: string;
-  startDate: string;
-  passengersCount: number;
 }

@@ -26,7 +26,6 @@ export class SuggestionComponent implements OnInit, OnDestroy {
     centerMode: true,
     centerPadding: '0px',
     focusOnSelect: true,
-    // asNavFor: '.flight-carousel',
     responsive: [
       {
         breakpoint: 1000,
@@ -43,7 +42,6 @@ export class SuggestionComponent implements OnInit, OnDestroy {
         },
       },
     ],
-    // asNavFor: this.sliderClass,
     asNavFor: '.there.thumbs',
   };
 
@@ -63,54 +61,10 @@ export class SuggestionComponent implements OnInit, OnDestroy {
     centerMode: true,
     centerPadding: '0px',
     focusOnSelect: true,
-    // asNavFor:`${this.from ? 'from': 'to'} .feedback`,
     prevArrow: '.client-thumbnails .prev-arrow',
     nextArrow: '.client-thumbnails .next-arrow',
   };
 
-  // slideConfig1 = {
-  //   slidesToShow: 5,
-  //   slidesToScroll: 1,
-  //   initialSlide: 3,
-  //   infinite: false,
-  //   draggable: false,
-  //   arrows: true,
-  //   dots: false,
-  //   centerMode: true,
-  //   centerPadding: '0px',
-  //   focusOnSelect: true,
-  //   // asNavFor: '.flight-carousel',
-  //   responsive: [
-  //     {
-  //       breakpoint: 1000,
-  //       settings: {
-  //         slidesToShow: 3,
-  //         slidesToScroll: 3,
-  //       },
-  //     },
-  //     {
-  //       breakpoint: 767,
-  //       settings: {
-  //         slidesToShow: 1,
-  //         slidesToScroll: 3,
-  //       },
-  //     },
-  //   ],
-  // };
-
-  // slideConfig2 = {
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   initialSlide: 3,
-  //   infinite: false,
-  //   draggable: false,
-  //   arrows: false,
-  //   dots: false,
-  //   centerMode: true,
-  //   centerPadding: '0px',
-  //   focusOnSelect: true,
-  //   // asNavFor: '.flight-carousel1',
-  // };
   slickInit(e: any) {
     console.log('slick initialized', e);
   }
