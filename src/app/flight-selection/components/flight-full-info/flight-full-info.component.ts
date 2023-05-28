@@ -67,9 +67,7 @@ export class FlightFullInfoComponent {
   }
 
   onEditClick() {
-    console.log('onEditClick');
     if (this.value) {
-      console.log('onEditClick inside');
       const t: Partial<ISelectFlightState> = this.backWay
         ? {
             selectedBackWay: null,

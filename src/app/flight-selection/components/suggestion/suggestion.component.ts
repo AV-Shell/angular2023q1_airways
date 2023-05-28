@@ -90,17 +90,12 @@ export class SuggestionComponent implements OnInit, OnDestroy {
   constructor(private store: Store<IAppState>) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit', 'backWay', this.backWay);
     this.sub = this.store.select(selectFlightSelector).subscribe(data => {
-      console.log(data);
       const previousSelected = this.selected;
 
       this.selected = this.backWay ? !!data.selectedBackWay : !!data.selectedThereWay;
       this.selectedIndex = this.backWay ? data.selectedIndexBackWay : data.selectedIndexThereWay;
 
-      console.log('this.backWay', this.backWay);
-      console.log('this.selected', this.selected);
-      console.log('this.selectedIndex', this.selectedIndex);
       if (previousSelected !== this.selected) {
         this.unclickable = false;
       }
@@ -109,7 +104,6 @@ export class SuggestionComponent implements OnInit, OnDestroy {
       this.dayInfoSliderBack.initialSlide = this.selectedIndex;
       this.flightInfoSliderThere.initialSlide = this.selectedIndex;
       this.flightInfoSliderBack.initialSlide = this.selectedIndex;
-      // this.sliderNavigates();
     });
   }
 
