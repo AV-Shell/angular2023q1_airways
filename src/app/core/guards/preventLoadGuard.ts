@@ -8,19 +8,10 @@ import { flightSelection } from 'src/app/store/selectors';
 export const preventLoadGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const store = inject(Store<{ appState: IAppState }>);
   const router = inject(Router);
-  const id = route.params['cardId'];
-  console.log('route.url', route);
 
   const url = route.url[0].path;
-  console.log('route.url', url);
-  // if (!id) {
-  //   router.navigate(['/main']);
-
-  //   return false;
-  // }
 
   return store.select(flightSelection).pipe(
-    tap(x => console.log('s', x)),
     map(st => {
       switch (url) {
         case 'flight-selection':
