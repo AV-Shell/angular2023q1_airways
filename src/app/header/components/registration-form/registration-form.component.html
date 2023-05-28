@@ -1,43 +1,67 @@
 <form class="registration-form" [formGroup]="form">
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
     <mat-label>Email</mat-label>
     <input matInput placeholder="Enter your email" formControlName="email" />
-    <!-- <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error> -->
+    <mat-error *ngIf="email?.hasError('required')">Please enter a email</mat-error>
+    <mat-error *ngIf="email?.hasError('pattern')">The entered email is not correct</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
     <mat-label>Password</mat-label>
     <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" formControlName="password" />
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    <mat-error *ngIf="password?.hasError('required')">Please enter a password</mat-error>
+    <mat-error *ngIf="password?.errors?.['invalidPassword'] as invalidPassword" class="error-message">
+      Your password isn't strong enough.Password should contain at least
+      <span class="error-message" *ngIf="invalidPassword.minLength"> {{ invalidPassword.minLength }}</span>
+      <span class="error-message" *ngIf="invalidPassword.uppercase"> {{ invalidPassword.uppercase }}</span>
+      <span class="error-message" *ngIf="invalidPassword.lowercase"> {{ invalidPassword.lowercase }}</span>
+      <span class="error-message" *ngIf="invalidPassword.number"> {{ invalidPassword.number }}</span>
+      <span class="error-message" *ngIf="invalidPassword.symbol"> {{ invalidPassword.symbol }}</span>
+    </mat-error>
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      aria-label="Example icon button with an info icon"
+      matTooltip="Password should contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 digit, 1 specific character"
+      matTooltipClass="custom-tooltip">
+      <mat-icon *ngIf="password?.invalid && password?.touched; else correctIcon" class="material-symbols-error">info</mat-icon>
     </button>
   </mat-form-field>
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
     <mat-label>First Name</mat-label>
     <input matInput placeholder="Enter your first name" type="text" formControlName="firstName" />
+    <mat-error *ngIf="firstName?.hasError('required')">Please enter your first name</mat-error>
+    <mat-error *ngIf="firstName?.errors?.['onlyLetters'] as onlyLetters" class="error-message">{{ onlyLetters }}</mat-error>
     <button
       mat-icon-button
       matSuffix
+      type="button"
       aria-label="Example icon button with an info icon"
       matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
       matTooltipClass="custom-tooltip">
-      <mat-icon class="material-symbols-outlined">info_outlined</mat-icon>
+      <mat-icon *ngIf="firstName?.invalid && firstName?.touched; else correctIcon" class="material-symbols-error">info</mat-icon>
     </button>
   </mat-form-field>
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
     <mat-label>Last Name</mat-label>
     <input matInput placeholder="Enter your last name" type="text" formControlName="lastName" />
+    <mat-error *ngIf="lastName?.hasError('required')">Please enter your first name</mat-error>
+    <mat-error *ngIf="lastName?.errors?.['onlyLetters'] as onlyLetters" class="error-message">{{ onlyLetters }}</mat-error>
     <button
       mat-icon-button
       matSuffix
+      type="button"
       aria-label="Example icon button with an info icon"
       matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
       matTooltipClass="custom-tooltip">
-      <mat-icon class="material-symbols-outlined">info_outlined</mat-icon>
+      <mat-icon *ngIf="lastName?.invalid && lastName?.touched; else correctIcon" class="material-symbols-error">info</mat-icon>
     </button>
   </mat-form-field>
-  <mat-form-field class="date" appearance="outline">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="date" />
+  <mat-form-field class="full-width form-input" [subscriptSizing]="'dynamic'" appearance="outline">
+    <mat-label>Date of birth</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" [max]="maxDate" />
+    <mat-error *ngIf="date?.hasError('required')">Please enter your date of birth</mat-error>
+    <mat-error *ngIf="date?.invalid">user's age should be over 15</mat-error>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker>
       <mat-date-range-picker-actions>
@@ -46,34 +70,38 @@
       </mat-date-range-picker-actions>
     </mat-datepicker>
   </mat-form-field>
-  <mat-button-toggle-group name="gender" class="gender">
+  <mat-button-toggle-group name="gender" class="gender" formControlName="gender">
     <mat-button-toggle value="male" class="gender-button">Male</mat-button-toggle>
     <mat-button-toggle value="female" class="gender-button">Female</mat-button-toggle>
   </mat-button-toggle-group>
   <div class="phone-container">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"  class="form-input">
       <mat-label>Country code</mat-label>
-      <mat-select required>
-        <mat-option value="volvo">Volvo</mat-option>
-        <mat-option value="saab">Saab</mat-option>
-        <mat-option value="mercedes">Mercedes</mat-option>
-        <mat-option value="audi">Audi</mat-option>
+      <mat-select formControlName="phoneCode" required>
+        <mat-option *ngFor="let country of countries" [value]="country.dialCode">
+          {{ country.name }} ({{ country.dialCode }})
+        </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="form-input">
       <mat-label>Mobile phone number</mat-label>
-      <input matInput placeholder="e.g. 1111111111" formControlName="phone" />
+      <input matInput type="tel" placeholder="e.g. 1111111111" formControlName="phone" />
+      <mat-error *ngIf="phone?.hasError('required')">Please enter your phone number</mat-error>
+      <mat-error *ngIf="phone?.hasError('pattern')" class="error-message">Number should contain 10 digits</mat-error>
     </mat-form-field>
   </div>
   <mat-form-field appearance="outline">
     <mat-label>Citizenship</mat-label>
-    <mat-select>
-      <mat-option value="volvo">Volvo</mat-option>
-      <mat-option value="saab">Saab</mat-option>
-      <mat-option value="mercedes">Mercedes</mat-option>
-      <mat-option value="audi">Audi</mat-option>
+    <mat-select formControlName="citizenship">
+      <mat-option class="citizenship-option" *ngFor="let country of countries" [value]="country.code">
+        <div class="citizenship-country">{{ country.name }} </div>
+        <div class="citizenship-country-code">{{ country.code }}</div>
+      </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-checkbox class="policy" color="primary">I agree to Airway's Privacy Policy and Terms of Use</mat-checkbox>
-  <button mat-flat-button color="primary" class="full-width" (click)="register()">Sign up</button>
+  <mat-checkbox class="policy" color="primary" #agreement>I agree to Airway's Privacy Policy and Terms of Use</mat-checkbox>
+  <button mat-flat-button color="primary" class="full-width" (click)="register()" [disabled]="!agreement.checked">Sign up</button>
+  <ng-template #correctIcon>
+    <mat-icon>info_outlined</mat-icon>
+  </ng-template>
 </form>
