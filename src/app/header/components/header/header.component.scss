@@ -18,7 +18,7 @@
 
     .info-container {
       flex: 1 1 200px;
-      @include flex(flex, row, flex-start, center, nowrap, 14px);
+      @include flex(flex, row, space-between, center, nowrap, 14px);
 
       .img-logo {
         cursor: pointer;
@@ -26,6 +26,7 @@
 
       .stepper {
         flex: 1 1 100%;
+        pointer-events: none;
       }
 
       .else-stepper {
@@ -67,6 +68,12 @@
 
           .sing-in-text {
             @include flex(flex, row, flex-start, center, nowrap, 8px);
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            color: $neutral-10;
 
             &.main {
               color: white;

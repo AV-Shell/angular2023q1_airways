@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
-import { IAirRequest } from '../models/core.models';
+import { IAirRequest, ICheckResponse, ILoginRequest, ILoginResponse, IRegisterRequest } from '../models/core.models';
 import { IAirResponse, IFlightInfo, IFlightInfoExt } from 'src/app/store/models';
 import * as moment from 'moment';
 
@@ -41,5 +41,22 @@ export class AirHttpService {
         };
       }),
     );
+  }
+
+  login(body: ILoginRequest) {
+    return this.http.post<ILoginResponse>('login', body);
+  }
+
+  register(body: IRegisterRequest) {
+    return this.http.post<ILoginResponse>('login', body);
+  }
+
+  checkUser(id: string, token: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<ICheckResponse>(`/600/users/${id}`, { headers });
   }
 }

@@ -1,10 +1,10 @@
 <app-request-info [showEdit]="true" [flightSearchState]="flightSearch" (showEditForm)="onShowEditForm()"></app-request-info>
 <div class="contentWrapper">
   <div class="content">
-    <form *ngIf="showEditForm" class="edit-form">
-      <button type="button" (click)="newSearchDataSubmit()"> new search data</button>
-    </form>
-
+    <div *ngIf="showEditForm" class="edit-form" >
+      <app-search-form class="flight-selection-edit-form" [isEditForm]="true"></app-search-form>
+    </div>
+    <!-- <button type="button" (click)="testSearchDataSubmit()">new search data</button> -->
     <ng-container *ngIf="true">
       <div class="page">
         <app-suggestion

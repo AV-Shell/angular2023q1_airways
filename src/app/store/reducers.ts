@@ -1,7 +1,21 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from './actions';
-import { commonInitialState, flightSearchInitialState, responseInitialState, selectFlightInitialState } from './state';
-import { IAirResponseExt, ICommonState, IFlightSearchState, ISelectFlightState, TMoneyField, TMoneyFormat } from './models';
+import {
+  commonInitialState,
+  flightSearchInitialState,
+  responseInitialState,
+  selectFlightInitialState,
+  userInitialState,
+} from './state';
+import {
+  IAirResponseExt,
+  ICommonState,
+  IFlightSearchState,
+  ISelectFlightState,
+  IUserState,
+  TMoneyField,
+  TMoneyFormat,
+} from './models';
 
 function getMoneyField(f: TMoneyFormat): TMoneyField {
   switch (f) {
@@ -65,6 +79,7 @@ export const selectFlightReducer = createReducer(
       selectedIndexBackWay: 3,
       selectedIndexThereWay: 3,
       selectedThereWay: null,
+      isSubmitted: false,
     };
   }),
   on(
@@ -80,6 +95,43 @@ export const selectFlightReducer = createReducer(
     (state, { values }): ISelectFlightState => ({
       ...state,
       ...values,
+    }),
+  ),
+);
+
+export const userReducer = createReducer(
+  userInitialState,
+  on(
+    actions.tryLogin,
+    (state): IUserState => ({
+      ...state,
+      loginError: '',
+      registerError: '',
+    }),
+  ),
+  on(
+    actions.tryRegister,
+    (state): IUserState => ({
+      ...state,
+      loginError: '',
+      registerError: '',
+    }),
+  ),
+  on(
+    actions.tryCheckUser,
+    (state): IUserState => ({
+      ...state,
+      loginError: '',
+      registerError: '',
+    }),
+  ),
+  on(
+    actions.getLoginResultSuccessfull,
+    (state, { result }): IUserState => ({
+      ...state,
+      ...result,
+      loginError: '',
+      registerError: '',
     }),
   ),
 );

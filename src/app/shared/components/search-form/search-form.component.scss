@@ -29,6 +29,44 @@
   @media #{$media-phone} {
     padding: 14px 0 0;
   }
+
+  @include flex(flex, row, flex-start, flex-start, wrap, 4px 20px);
+
+  .destination-input:first-child {
+    @media #{$media-phone} {
+      margin-bottom: 4px;
+    }
+  }
+
+  .changeDestinationButton {
+    position: absolute;
+    left: 88%;
+    top: 66px;
+    @media #{$media-phone} {
+      top: 64px;
+    }
+  }
+
+  .date {
+    margin-top: 20px;
+    flex: 1 1 300px;
+    @media #{$media-phone} {
+      margin-top: 4px;
+      flex: 1 1 100%;
+
+      mat-error:not(:first-of-type) {
+        visibility: hidden;
+      }
+    }
+  }
+  .passengers {
+    margin-top: 20px;
+    flex: 1 1 210px;
+    @media #{$media-phone} {
+      margin-top: 4px;
+      flex: 1 1 100%;
+    }
+  }
 }
 
 .destination-input {
@@ -104,12 +142,6 @@
   }
 }
 
-.mat-mdc-mini-fab {
-  position: absolute;
-  left: 88%;
-  top: 65px;
-}
-
 ::ng-deep.passenger-option {
   .mat-pseudo-checkbox {
     display: none !important;
@@ -139,7 +171,7 @@
   display: none;
 }
 
-.passengers.invalid.ng-touched{
+.passengers.invalid.ng-touched {
   .hint-error-container {
     display: flex;
     justify-content: stretch;
@@ -149,18 +181,16 @@
   }
 }
 
-
 ::ng-deep .passengers.invalid.ng-touched {
   .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: #f44336;
   }
 
-
   .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) {
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
     .mdc-notched-outline__trailing {
-      border-color:#f44336;
+      border-color: #f44336;
     }
 
     .mdc-floating-label {
@@ -171,17 +201,16 @@
       label.mdc-floating-label.mat-mdc-floating-label {
         overflow: initial;
         mat-label {
-          background:  linear-gradient(transparent, $secondary-90);;
+          background: linear-gradient(transparent, $secondary-90);
           padding-right: 5px;
 
-          .dialog-content &{
-            background:  linear-gradient(white, $secondary-90);;
+          .dialog-content & {
+            background: linear-gradient(white, $secondary-90);
           }
         }
       }
     }
   }
-
 }
 
 ::ng-deep .passangers-input-container {
@@ -249,4 +278,48 @@
 
 .invisible {
   display: none !important;
+}
+
+.search-form.isEditForm {
+  width: 100%;
+  padding: 20px;
+  border-radius: 0px;
+  position: relative;
+
+  display: block;
+
+  & > *:first-child {
+    flex: 1 0 100%;
+  }
+
+  .matRadioGroup {
+    display: none !important;
+  }
+
+  .destination {
+    flex: 1 1 calc(50% - 10px);
+    @include flex(flex, row, flex-start, flex-start, wrap, 20px);
+    padding: 0px;
+
+    .destination-input {
+      margin: 0;
+      padding: 0;
+      flex: 1 0 255px;
+    }
+
+    .changeDestinationButton {
+      display: none !important;
+    }
+
+    .date {
+      margin: 0;
+      padding: 0;
+      flex: 1 0 311px;
+    }
+    .passengers {
+      flex: 1 0 201px;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

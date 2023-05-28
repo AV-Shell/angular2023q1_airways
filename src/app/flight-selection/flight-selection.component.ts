@@ -3,8 +3,11 @@ import { Subscription } from 'rxjs';
 import { IAirResponseExt, IAppState, ICommonState, IFlightSearchState, IFormats, ISelectFlightState } from '../store/models';
 import { Store } from '@ngrx/store';
 import { flightSelection } from '../store/selectors';
-import { changeFlightSearchValue } from '../store/actions';
+import { changeFlightSearchValue, changeFlightSelectValue } from '../store/actions';
 import { Router } from '@angular/router';
+import { ILoginResponse } from '../core/models/core.models';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../header/components/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-flight-selection',
@@ -17,15 +20,16 @@ export class FlightSelectionComponent implements OnInit, OnDestroy {
   airResponse: IAirResponseExt | null = null;
   flightSearch: IFlightSearchState | null = null;
   selectFlight: ISelectFlightState | null = null;
+  userState: ILoginResponse | null = null;
   subs!: Subscription;
 
   moneys = ['EUR', 'USA', 'RUB', 'PLN'];
 
-  public commonState!: ICommonState;
+  commonState!: ICommonState;
 
-  public formats!: IFormats;
+  formats!: IFormats;
 
-  constructor(private store: Store<IAppState>, private router: Router) {}
+  constructor(public dialog: MatDialog, private store: Store<IAppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.subs = this.store.select(flightSelection).subscribe(data => {
@@ -38,6 +42,7 @@ export class FlightSelectionComponent implements OnInit, OnDestroy {
       this.airResponse = data.airResponseState;
       this.flightSearch = data.flightSearchState;
       this.selectFlight = data.selectFlightState;
+      this.userState = data.userState;
       console.log(data);
     });
   }
@@ -51,11 +56,12 @@ export class FlightSelectionComponent implements OnInit, OnDestroy {
   }
 
   continueClick() {
-    // if (false) {
-    //   this.router.navigate(['/passengers-info']);
-    // } else {
-    //   console.log('openRegistration');
-    // }
+    if (this.userState?.accessToken) {
+      // this.router.navigate(['/passengers-info']);
+      this.store.dispatch(changeFlightSelectValue({ values: { isSubmitted: true } }));
+    } else {
+      this.dialog.open(LoginDialogComponent);
+    }
   }
 
   ngOnDestroy(): void {
@@ -90,7 +96,7 @@ export class FlightSelectionComponent implements OnInit, OnDestroy {
     return this.selectFlight?.selectedBackWay;
   }
 
-  public newSearchDataSubmit() {
+  testSearchDataSubmit() {
     const data: IFlightSearchState = {
       adults: 2,
       child: 2,

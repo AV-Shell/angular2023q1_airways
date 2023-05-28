@@ -61,9 +61,15 @@ body {
   padding: 15px 44px;
 }
 
+@media #{$media-sdesktop} {
+  .contentWrapper {
+    padding: 0 76px;
+  }
+}
+
 @media #{$media-tablets} {
   .contentWrapper {
-    padding: 0 64px;
+    padding: 0 20px;
   }
 
   .bookingFormContentWrapper {

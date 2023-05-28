@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { value: 'YYYY/MM/DD', selected: true },
   ];
 
-  urlsWithStepper = ['/flight-selection'];
+  urlsWithStepper = ['/flight-selection', '/passengers-info', '/summary'];
 
   moneys: Array<TMoneyFormat> = ['EUR', 'USD', 'RUB', 'PLN'];
 
@@ -62,6 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, private _formBuilder: FormBuilder, private store: Store<IAppState>, private router: Router) {}
 
   ngOnInit(): void {
+    console.log({ t: this });
     this.commonState = this.store.select(commonStateSelector);
 
     this.sub = this.router.events.subscribe(event => {
@@ -69,6 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.showStepper = this.urlsWithStepper.includes(event.url);
         this.isMainPage = event.url === '/main' || event.url === '/';
 
+        console.log('event.url', event.url);
         switch (event.url) {
           case '/main':
           case '/':
@@ -76,17 +78,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.myStep.s2 = 'number';
             this.myStep.s3 = 'number';
             break;
-          case 'flight-selection':
+          case '/flight-selection':
             this.myStep.s1 = 'edit';
             this.myStep.s2 = 'number';
             this.myStep.s3 = 'number';
             break;
-          case 'passengers-info':
+          case '/passengers-info':
             this.myStep.s1 = 'done';
             this.myStep.s2 = 'edit';
             this.myStep.s3 = 'number';
             break;
-          case 'summary':
+          case '/summary':
             this.myStep.s1 = 'done';
             this.myStep.s2 = 'done';
             this.myStep.s3 = 'edit';

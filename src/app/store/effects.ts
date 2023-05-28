@@ -4,7 +4,7 @@ import { of, catchError, map, switchMap, tap, EMPTY } from 'rxjs';
 import { AirHttpService } from '../core/services/air.http.service';
 import * as allActions from './actions';
 import { IAirResponseExt, IFlightSearchState } from './models';
-import { IAirRequest } from '../core/models/core.models';
+import { IAirRequest, ILoginRequest, ILoginResponse, IRegisterRequest } from '../core/models/core.models';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -39,6 +39,52 @@ export class AirEffects {
       switchMap(_ => {
         this.router.navigate([`/flight-selection/`]);
         return of(allActions.redirectAction());
+      }),
+    ),
+  );
+
+  getSelectResult = createEffect(() =>
+    this.actions.pipe(
+      ofType(allActions.changeFlightSelectValue),
+      switchMap(data => {
+        if (data.values.isSubmitted) {
+          this.router.navigate(['/passengers-info']);
+        }
+        return of(allActions.redirectAction());
+      }),
+    ),
+  );
+
+  getLogin = createEffect(() =>
+    this.actions.pipe(
+      ofType(allActions.tryLogin),
+      switchMap(({ values }: { values: ILoginRequest }) => {
+        const request: ILoginRequest = {
+          ...values,
+        };
+        return this.airS.login(request).pipe(
+          map((value: ILoginResponse) => allActions.getLoginResultSuccessfull({ result: value })),
+          catchError(error => {
+            return of(allActions.getLoginResultError({ error: error.error?.message ?? error.message ?? 'something went wrong' }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  getRegister = createEffect(() =>
+    this.actions.pipe(
+      ofType(allActions.tryRegister),
+      switchMap(({ values }: { values: IRegisterRequest }) => {
+        const request: IRegisterRequest = {
+          ...values,
+        };
+        return this.airS.register(request).pipe(
+          map((value: ILoginResponse) => allActions.getLoginResultSuccessfull({ result: value })),
+          catchError(error => {
+            return of(allActions.getRegisterResultError({ error: error.error?.message ?? error.message ?? 'something went wrong' }));
+          }),
+        );
       }),
     ),
   );

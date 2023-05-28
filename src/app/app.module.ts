@@ -10,7 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { airResponseReducer, commonReducer, flightSearchReducer, selectFlightReducer } from './store/reducers';
+import { airResponseReducer, commonReducer, flightSearchReducer, selectFlightReducer, userReducer } from './store/reducers';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
 import { CoreModule } from './core/core.module';
@@ -27,6 +27,7 @@ import { AirEffects } from './store/effects';
         flightSearchState: flightSearchReducer,
         airResponseState: airResponseReducer,
         selectFlightState: selectFlightReducer,
+        userState: userReducer,
         router: routerReducer,
       },
       {

@@ -9,6 +9,13 @@ const routes: Routes = [
     path: 'flight-selection',
     loadChildren: () => import('./flight-selection/flight-selection.module').then(m => m.FlightSelectionModule),
   },
+  {
+    path: 'passengers-info',
+    loadChildren: () => import('./passengers-info/passengers-info.module').then(m => m.PassengersInfoModule),
+  },
+  { path: 'summary', loadChildren: () => import('./summary/summary.module').then(m => m.SummaryModule) },
+  { path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule) },
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
   { path: '**', component: NotFoundPageComponent },
 ];
 

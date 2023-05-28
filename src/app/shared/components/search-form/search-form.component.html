@@ -1,5 +1,5 @@
-<form class="search-form" [formGroup]="form">
-  <mat-radio-group color="primary" formControlName="tripType" (change)="changeCalendar($event)">
+<form class="search-form" [formGroup]="form" [ngClass]="{isEditForm}">
+  <mat-radio-group color="primary" formControlName="tripType" class="matRadioGroup">
     <mat-radio-button value="1" checked="true"><span class="radio-text">Round Trip</span></mat-radio-button>
     <mat-radio-button value="2" class="radio-text"><span class="radio-text">One Way</span></mat-radio-button>
   </mat-radio-group>
@@ -27,7 +27,7 @@
         matInput
         formControlName="to"
         [matAutocomplete]="destination" />
-        <mat-error *ngIf="to?.invalid">Destination field is required</mat-error>
+      <mat-error *ngIf="to?.invalid">Destination field is required</mat-error>
       <mat-autocomplete #destination="matAutocomplete">
         <mat-option *ngFor="let airport of filteredTo | async" [value]="buildValue(airport)">
           <div class="airport-name">
@@ -38,11 +38,9 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-mini-fab color="primary" (click)="switchAirports()" type="button">
+    <button mat-mini-fab color="primary" (click)="switchAirports()" type="button" class="changeDestinationButton">
       <mat-icon>sync_alt</mat-icon>
     </button>
-  </div>
-  <div class="info-wrapper">
     <ng-container *ngIf="isOneWay; else rangeDatePicker">
       <mat-form-field class="date" appearance="outline">
         <mat-label>Choose a date</mat-label>
@@ -66,18 +64,18 @@
           <input matEndDate placeholder="End date" formControlName="end" />
         </mat-date-range-input>
         <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-        <mat-error *ngIf="start?.hasError('required')">Choose departure date, please</mat-error>
-        <mat-error *ngIf="end?.hasError('required')">Choose return date, please</mat-error>
         <mat-date-range-picker #rangePicker>
           <mat-date-range-picker-actions>
             <button mat-button color="primary" matDateRangePickerCancel>Cancel</button>
             <button mat-button color="primary" matDateRangePickerApply>OK</button>
           </mat-date-range-picker-actions>
         </mat-date-range-picker>
+        <mat-error *ngIf="start?.hasError('required')">Choose departure date, please</mat-error>
+        <mat-error *ngIf="end?.hasError('required')">Choose return date, please</mat-error>
       </mat-form-field>
     </ng-template>
 
-    <mat-form-field class="passengers" appearance="outline" [ngClass]="{invalid: !!passengersErrors}">
+    <mat-form-field class="passengers" appearance="outline" [ngClass]="{ invalid: !!passengersErrors }">
       <mat-label>Passengers*</mat-label>
       <mat-select [value]="passengersValue ? 'fakestate' : ''" formControlName="fakeControl">
         <mat-select-trigger>
@@ -183,7 +181,9 @@
         </div>
       </mat-select>
 
-      <mat-hint class="hint-error-container"><mat-error *ngIf="passengersErrors">{{ passengersErrors }}</mat-error></mat-hint>
+      <mat-hint class="hint-error-container"
+        ><mat-error *ngIf="passengersErrors">{{ passengersErrors }}</mat-error></mat-hint
+      >
     </mat-form-field>
   </div>
   <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()">Search</button>

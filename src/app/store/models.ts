@@ -1,3 +1,5 @@
+import { ILoginResponse } from '../core/models/core.models';
+
 export type TDataFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/DD/MM' | 'YYYY/MM/DD';
 export type TMoneyFormat = 'EUR' | 'USD' | 'RUB' | 'PLN';
 export type TMoneyField = 'eur' | 'usd' | 'rub' | 'pln';
@@ -42,6 +44,7 @@ export interface IAppState {
   airResponseState: IAirResponseExt;
   flightSearchState: IFlightSearchState;
   selectFlightState: ISelectFlightState;
+  userState: IUserState;
 }
 
 export interface IFormats {
@@ -99,4 +102,10 @@ export interface ISelectFlightState {
   selectedIndexBackWay: number;
   selectedThereWay: IFlightInfoExt | null;
   selectedBackWay: IFlightInfoExt | null;
+  isSubmitted: boolean;
+}
+
+export interface IUserState extends ILoginResponse {
+  loginError: string;
+  registerError: string;
 }

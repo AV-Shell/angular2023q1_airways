@@ -10,6 +10,7 @@ import { SuggestionComponent } from './components/suggestion/suggestion.componen
 import { FlightMinInfoComponent } from './components/flight-min-info/flight-min-info.component';
 import { FlightFullInfoComponent } from './components/flight-full-info/flight-full-info.component';
 import { CounterColorDirective } from './directives/counter-color.directive';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,6 @@ import { CounterColorDirective } from './directives/counter-color.directive';
     FlightFullInfoComponent,
     CounterColorDirective,
   ],
-  imports: [CommonModule, FlightSelectionRoutingModule, SharedModule, MatButtonModule, SlickCarouselModule],
+  imports: [CommonModule, FlightSelectionRoutingModule, SharedModule, MatButtonModule, SlickCarouselModule, MatDialogModule],
 })
 export class FlightSelectionModule {}

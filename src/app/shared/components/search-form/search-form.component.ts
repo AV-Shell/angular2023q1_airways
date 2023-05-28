@@ -1,25 +1,25 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { passengersInputValidator } from 'src/app/core/validators/passengersInput.validator';
 import { airports } from 'src/app/constants/airports';
 import { changeFlightSearchValue } from 'src/app/store/actions';
 import { IAppState, IFlightSearchFormSubmit, IFlightSearchState } from 'src/app/store/models';
 import { requiredWhenValidator } from 'src/app/core/validators/endDate.validator';
+import { flightSearchStateSelector } from 'src/app/store/selectors';
 
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss'],
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnInit, OnDestroy {
+  @Input() isEditForm = false;
   @ViewChild('adults') adults!: ElementRef<HTMLInputElement>;
   @ViewChild('child') child!: ElementRef<HTMLInputElement>;
   @ViewChild('infants') infants!: ElementRef<HTMLInputElement>;
-
   public form: FormGroup = new FormGroup({
     from: new FormControl('', Validators.required),
     to: new FormControl('', Validators.required),
@@ -36,9 +36,10 @@ export class SearchFormComponent implements OnInit {
   public filteredFrom!: Observable<Airports[]> | null;
   public filteredTo!: Observable<Airports[]> | null;
   public tripType!: string;
-  public isOneWay!: boolean;
   public minDate = new Date();
   public maxDate!: Date;
+
+  private sub!: Subscription;
 
   constructor(private store: Store<IAppState>) {
     const currentYear = new Date().getFullYear();
@@ -59,6 +60,10 @@ export class SearchFormComponent implements OnInit {
 
   get end(): AbstractControl | null {
     return this.form.get('end');
+  }
+
+  get isOneWay(): boolean {
+    return this.form.get('tripType')?.value !== '1';
   }
 
   get passengersValue() {
@@ -94,14 +99,27 @@ export class SearchFormComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.isOneWay = this.form.get('tripType')?.value !== '1';
     this.filteredFrom = this.filterAirports(this.from);
     this.filteredTo = this.filterAirports(this.to);
     this.form.addValidators(passengersInputValidator);
+    this.sub = this.store.select(flightSearchStateSelector).subscribe(data => {
+      if (data.searchFrom) {
+        //not initial state;
+        this.form.controls?.['from'].setValue(data.searchFrom);
+        this.form.controls?.['to'].setValue(data.searchTo);
+        this.form.controls?.['tripType'].setValue(`${data.tripType}`);
+        this.form.controls?.['start'].setValue(new Date(data.start));
+        this.form.controls?.['end'].setValue(new Date(data.end));
+        this.form.controls?.['adults'].setValue(data.adults);
+        this.form.controls?.['child'].setValue(data.child);
+        this.form.controls?.['infants'].setValue(data.infants);
+        this.form.controls?.['fakeControl'].setValue(this.passengersValue ? 'fakestate' : '');
+      }
+    });
   }
 
-  public changeCalendar(e: MatRadioChange): void {
-    this.isOneWay = e.value !== '1';
+  public ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   public buildValue(airport: Airports): string {
@@ -193,7 +211,7 @@ export class SearchFormComponent implements OnInit {
       codeTo: value.to.slice(-4, -1),
       searchFrom: value.from,
       searchTo: value.to,
-      end: value.end.toString(),
+      end: value.end ? value.end.toString() : value.start.toString(),
       start: value.start.toString(),
       error: '',
     };
