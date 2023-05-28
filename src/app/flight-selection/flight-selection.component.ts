@@ -38,7 +38,6 @@ export class FlightSelectionComponent implements OnInit, OnDestroy {
       this.airResponse = data.airResponseState;
       this.flightSearch = data.flightSearchState;
       this.selectFlight = data.selectFlightState;
-      console.log(data);
     });
   }
 

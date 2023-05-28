@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 $dark-primary-text: rgba(black, 0.87);
 $light-primary-text: white;
 
@@ -7,7 +9,7 @@ $my-palette1: (
   200: #9fa8da,
   300: #7986cb,
   400: #5c6bc0,
-  500: #3f51b5,
+  500: $primary,
   600: #3949ab,
   700: #303f9f,
   800: #283593,
@@ -73,7 +75,7 @@ $my-palette3: (
   200: #ef9a9a,
   300: #e57373,
   400: #ef5350,
-  500: #f44336,
+  500: $red,
   600: #e53935,
   700: #d32f2f,
   800: #c62828,
