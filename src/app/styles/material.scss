@@ -4,14 +4,33 @@
   .mdc-notched-outline__leading,
   .mdc-notched-outline__notch,
   .mdc-notched-outline__trailing {
-    border-color: green;
+    border-color: $primary;
   }
 
   .mdc-floating-label {
-    color: green;
+    color: $primary;
+    letter-spacing: normal;
+  }
+
+  div.mdc-notched-outline__notch {
+    label.mdc-floating-label.mat-mdc-floating-label {
+      overflow: initial;
+      mat-label {
+        background:  linear-gradient(transparent, $secondary-90);;
+        padding-right: 5px;
+
+        .dialog-content &{
+          background:  linear-gradient(white, $secondary-90);;
+        }
+      }
+    }
   }
 }
 
-.mat-mdc-text-field-wrapper{
+.mat-mdc-text-field-wrapper {
   background-color: $secondary-90 !important;
+}
+
+span.mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+  border-color: $primary;
 }
