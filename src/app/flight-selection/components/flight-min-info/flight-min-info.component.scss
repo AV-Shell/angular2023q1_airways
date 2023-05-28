@@ -102,7 +102,7 @@
     background-color: transparent;
 
     &.unaviable {
-      border-color: transparent;
+      border-color: transparent !important;
     }
   }
 }

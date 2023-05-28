@@ -1,7 +1,6 @@
 @import 'src/app/styles/common.scss';
 
 :host {
-
   @include flex(flex, column, flex-start, initial, nowrap, 8px);
 
   .flight-info {
@@ -10,6 +9,15 @@
 
     .img.backWay {
       transform: rotateY(180deg);
+    }
+
+    .text {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+      color: $primary;
     }
   }
 
@@ -34,7 +42,7 @@
   .slide {
     height: 88px;
     @include flex(flex, column, flex-end, stretch, nowrap, 0px);
-    
+
     .selected {
       height: initial;
     }
@@ -44,13 +52,13 @@
 ::ng-deep .flight-suggestion {
   button.slick-arrow.slick-prev {
     left: 0;
-    top:52px;
+    top: 52px;
     z-index: 10;
   }
 
   button.slick-arrow.slick-next {
     right: 0;
-    top:52px;
+    top: 52px;
     z-index: 10;
   }
 
@@ -59,5 +67,3 @@
     color: $secondary;
   }
 }
-
-
