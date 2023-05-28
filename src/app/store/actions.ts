@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IAirResponseExt, IFlightSearchState, ISelectFlightState, TDataFormat, TMoneyFormat } from './models';
-import { ILoginRequest, ILoginResponse, IRegisterRequest } from '../core/models/core.models';
+import { ICheckResponse, ILoginRequest, ILoginResponse, IRegisterRequest } from '../core/models/core.models';
 
 export const changeDataFormatValue = createAction('[Header] set data format value', props<{ value: TDataFormat }>());
 export const changeMoneyFormatValue = createAction('[Header] set money format value', props<{ value: TMoneyFormat }>());
@@ -15,6 +15,8 @@ export const getAirSearchResultSuccessfull = createAction(
 export const getAirSearchResultError = createAction('[App Effect] failed flights search result', props<{ error: string }>());
 
 export const redirectAction = createAction('[Router] redirect ');
+export const emptyAction = createAction('[Some] empty ');
+export const startAppAction = createAction('[App start] cher LS ');
 
 export const changeFlightSelectValue = createAction(
   '[flight select] change flight select values',
@@ -28,3 +30,8 @@ export const tryCheckUser = createAction('[Login] try to CheckUser', props<{ id:
 export const getLoginResultSuccessfull = createAction('[Login/Register] set login result', props<{ result: ILoginResponse }>());
 export const getLoginResultError = createAction('[Login] failed login', props<{ error: string }>());
 export const getRegisterResultError = createAction('[Login] failed register', props<{ error: string }>());
+export const getCheckedUserSuccessfull = createAction(
+  '[App Start] check saved user',
+  props<{ result: ICheckResponse; token: string }>(),
+);
+export const getCheckUserResultError = createAction('[Check user] failed', props<{ error: string }>());

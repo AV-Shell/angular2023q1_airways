@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from './password-validator';
 import { onlyLettersValidator } from 'src/app/core/validators/onlyLetters.validator';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { IAppState } from 'src/app/store/models';
+import { userSelector } from 'src/app/store/selectors';
+import { tryRegister } from 'src/app/store/actions';
+import { MatDialogRef } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.scss'],
 })
-export class RegistrationFormComponent implements OnInit {
+export class RegistrationFormComponent implements OnInit, OnDestroy {
   public hide = true;
 
   public form!: FormGroup;
@@ -83,6 +90,10 @@ export class RegistrationFormComponent implements OnInit {
 
   public maxDate!: Date;
 
+  private subs!: Subscription;
+
+  constructor(private store: Store<IAppState>, private dialogRef: MatDialogRef<LoginDialogComponent>) {}
+
   get email(): AbstractControl | null {
     return this.form.get('email');
   }
@@ -124,12 +135,45 @@ export class RegistrationFormComponent implements OnInit {
 
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear - 15, 0, 1);
+    this.subs = this.store.select(userSelector).subscribe(data => {
+      this.form.setErrors({ error: data.registerError });
+
+      if (data.accessToken) {
+        this.closeDialog();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
   public register(): void {
     this.form.markAllAsTouched();
-    // console.log(this.form);
-    // if (this.form.valid) {
-    // }
+    if (this.form.valid) {
+      const formValue = this.form.value;
+      const birthDay = new Date(formValue.date).toISOString();
+
+      this.store.dispatch(
+        tryRegister({
+          values: {
+            email: formValue.email,
+            password: formValue.password,
+            birthDay,
+            citizenship: formValue.citizenship,
+            countryCode: formValue.phoneCode,
+            phoneNumber: formValue.phone,
+            gender: formValue.gender,
+            termsUse: true,
+            firstName: formValue.firstName,
+            lastName: formValue.lastName,
+          },
+        }),
+      );
+    }
   }
 }

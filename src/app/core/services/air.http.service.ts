@@ -48,15 +48,15 @@ export class AirHttpService {
   }
 
   register(body: IRegisterRequest) {
-    return this.http.post<ILoginResponse>('login', body);
+    return this.http.post<ILoginResponse>('register', body);
   }
 
-  checkUser(id: string, token: string) {
+  checkUser(id: number, token: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     });
-    return this.http.get<ICheckResponse>(`/600/users/${id}`, { headers });
+    return this.http.get<ICheckResponse>(`600/users/${id}`, { headers });
   }
 }

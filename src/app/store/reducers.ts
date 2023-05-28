@@ -134,4 +134,44 @@ export const userReducer = createReducer(
       registerError: '',
     }),
   ),
+  on(actions.getCheckedUserSuccessfull, (state, { result, token }): IUserState => {
+    const userState: IUserState = {
+      accessToken: token,
+      loginError: '',
+      registerError: '',
+      user: {
+        birthDay: result.birthDay,
+        citizenship: result.citizenship,
+        countryCode: result.countryCode,
+        email: result.email,
+        firstName: result.firstName,
+        lastName: result.lastName,
+        gender: result.gender,
+        id: result.id,
+        phoneNumber: result.phoneNumber,
+        termsUse: result.termsUse,
+      },
+    };
+
+    return {
+      ...state,
+      ...userState,
+    };
+  }),
+  on(
+    actions.getLoginResultError,
+    (state, { error }): IUserState => ({
+      ...state,
+      loginError: error,
+      registerError: '',
+    }),
+  ),
+  on(
+    actions.getRegisterResultError,
+    (state, { error }): IUserState => ({
+      ...state,
+      loginError: '',
+      registerError: error,
+    }),
+  ),
 );
