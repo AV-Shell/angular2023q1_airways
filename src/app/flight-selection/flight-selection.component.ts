@@ -59,7 +59,8 @@ export class FlightSelectionComponent implements OnInit, OnDestroy {
       // this.router.navigate(['/passengers-info']);
       this.store.dispatch(changeFlightSelectValue({ values: { isSubmitted: true } }));
     } else {
-      this.dialog.open(LoginDialogComponent);
+      // this.dialog.open(LoginDialogComponent);
+      this.router.navigate(['/passengers-info']);
     }
   }
 

@@ -38,8 +38,8 @@ export interface ILoginResponse {
     lastName: string;
     birthDay: string;
     gender: 'male' | 'female';
-    countryCode: number;
-    phoneNumber: number;
+    countryCode: string;
+    phoneNumber: string;
     citizenship: string;
     termsUse: boolean;
     id: number;
