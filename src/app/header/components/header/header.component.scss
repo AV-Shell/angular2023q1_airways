@@ -12,7 +12,7 @@
     flex: 1 1 100%;
     @include flex(flex, row, space-between, center, wrap, 14px);
 
-    &.notMainPage{
+    &.notMainPage {
       background-color: $neutral-100;
     }
 
@@ -53,6 +53,32 @@
 
       .group-container {
         @include flex(flex, row, flex-start, center, nowrap, 14px);
+
+        .sing-in-button {
+          height: 40px;
+          background: $neutral-90;
+          border: 1px solid $neutral-60;
+          border-radius: 4px;
+          transition: box-shadow 0.1s ease-in-out;
+
+          &:hover {
+            box-shadow: 0px 0px 2px 1px #d5d5d5;
+          }
+
+          .sing-in-text {
+            @include flex(flex, row, flex-start, center, nowrap, 8px);
+
+            &.main {
+              color: white;
+            }
+          }
+        }
+        .cart-button {
+          height: 40px;
+          min-width: 62px;
+          border-radius: 4px;
+          transition: box-shadow 0.1s ease-in-out;
+        }
       }
 
       @media #{$media-phone} {
@@ -117,6 +143,37 @@
       min-height: 40px;
       padding-top: 8px !important;
       padding-bottom: 8px !important;
+    }
+  }
+
+  .money-select-wrapper.main,
+  .data-format-select-wrapper.main {
+    .mat-mdc-select-value {
+      color: white;
+    }
+
+    .mat-mdc-select-arrow-wrapper {
+      .mat-mdc-select-arrow {
+        color: white;
+      }
+    }
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background: $neutral-90 !important;
+    border: 1px solid $neutral-60 !important;
+    border-radius: 4px !important;
+    overflow: hidden;
+    transition: box-shadow 0.1s ease-in-out;
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border: none;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 2px 1px #d5d5d5;
     }
   }
 }
