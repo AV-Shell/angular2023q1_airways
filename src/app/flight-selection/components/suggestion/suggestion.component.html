@@ -9,7 +9,6 @@
   <div [ngClass]="{ hidden1: selected }">
     <ngx-slick-carousel
       (init)="slickInit($event)"
-      (breakpoint)="breakpoint($event)"
       (afterChange)="afterChange($event)"
       (beforeChange)="beforeChange($event)"
       [ngClass]="{ backWay, thereWay: !backWay, unclickable }"

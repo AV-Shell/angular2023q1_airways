@@ -1,4 +1,4 @@
-<form class="registration-form" [formGroup]="form">
+<form class="registration-form" [formGroup]="form" (ngSubmit)="register()">
   <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
     <mat-label>Email</mat-label>
     <input matInput placeholder="Enter your email" formControlName="email" />
@@ -75,7 +75,7 @@
     <mat-button-toggle value="female" class="gender-button">Female</mat-button-toggle>
   </mat-button-toggle-group>
   <div class="phone-container">
-    <mat-form-field appearance="outline"  class="form-input">
+    <mat-form-field appearance="outline" class="form-input">
       <mat-label>Country code</mat-label>
       <mat-select formControlName="phoneCode" required>
         <mat-option *ngFor="let country of countries" [value]="country.dialCode">
@@ -94,13 +94,14 @@
     <mat-label>Citizenship</mat-label>
     <mat-select formControlName="citizenship">
       <mat-option class="citizenship-option" *ngFor="let country of countries" [value]="country.code">
-        <div class="citizenship-country">{{ country.name }} </div>
+        <div class="citizenship-country">{{ country.name }}</div>
         <div class="citizenship-country-code">{{ country.code }}</div>
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-checkbox class="policy" color="primary" #agreement>I agree to Airway's Privacy Policy and Terms of Use</mat-checkbox>
-  <button mat-flat-button color="primary" class="full-width" (click)="register()" [disabled]="!agreement.checked">Sign up</button>
+  <button mat-flat-button color="primary" class="full-width" [disabled]="!agreement.checked" type="submit">Sign up</button>
+  <mat-error *ngIf="form?.hasError('error')">{{ form.errors?.['error'] }}</mat-error>
   <ng-template #correctIcon>
     <mat-icon>info_outlined</mat-icon>
   </ng-template>

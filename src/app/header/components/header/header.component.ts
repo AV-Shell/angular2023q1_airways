@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS, StepState } from '@angular/cdk/stepper';
 import { Store } from '@ngrx/store';
 import { IAppState, ICommonState, TDataFormat, TMoneyFormat } from 'src/app/store/models';
-import { commonStateSelector } from 'src/app/store/selectors';
+import { commonStateSelector, userSelector } from 'src/app/store/selectors';
 import { Observable, Subscription } from 'rxjs';
 import { changeDataFormatValue, changeMoneyFormatValue } from 'src/app/store/actions';
 import { NavigationEnd, Router } from '@angular/router';
@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   animal!: string;
 
   step = 0;
+  isLogged = false;
+  fullName = '';
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -62,7 +64,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, private _formBuilder: FormBuilder, private store: Store<IAppState>, private router: Router) {}
 
   ngOnInit(): void {
-    console.log({ t: this });
     this.commonState = this.store.select(commonStateSelector);
 
     this.sub = this.router.events.subscribe(event => {
@@ -70,7 +71,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.showStepper = this.urlsWithStepper.includes(event.url);
         this.isMainPage = event.url === '/main' || event.url === '/';
 
-        console.log('event.url', event.url);
         switch (event.url) {
           case '/main':
           case '/':
@@ -99,6 +99,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+    this.sub.add(
+      this.store.select(userSelector).subscribe(data => {
+        this.isLogged = !!data.accessToken;
+
+        const fullNamme = this.isLogged ? `${data.user.firstName} ${data.user.lastName}` : '';
+
+        this.fullName = fullNamme.length > 10 ? fullNamme.slice(0, 15) + '...' : fullNamme;
+      }),
+    );
   }
 
   ngOnDestroy(): void {
@@ -109,10 +119,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/main']);
   }
 
-  //TODO:
   log(data: unknown) {
-    // console.log('this step', this.step);
-    // console.log(data);
+    //stepper selection change
   }
 
   onChangeDataFormat(data: { value: TDataFormat }) {
@@ -130,5 +138,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
     });
+  }
+
+  openSettings(): void {
+    this.router.navigate(['/settings']);
   }
 }

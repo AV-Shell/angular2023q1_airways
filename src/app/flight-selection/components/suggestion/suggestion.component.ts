@@ -112,14 +112,9 @@ export class SuggestionComponent implements OnInit, OnDestroy {
   }
 
   slickInit(e: any) {
-    // console.log('slick initialized', e);
-    // console.log('slickInit', 'backWay', this.backWay);
     // this.sliderNavigates();
   }
 
-  breakpoint(e: any) {
-    // console.log('breakpoint', e);
-  }
 
   afterChange(e: { currentSlide: number }) {
     // this.unclickable = false;

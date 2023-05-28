@@ -34,10 +34,13 @@
       </mat-form-field>
     </div>
     <div class="group-container">
-      <button mat-stroked-button class="sing-in-button" (click)="openDialog()">
-        <span class="sing-in-text" [ngClass]="{ main: isMainPage }">
-          <img class="img-signin" [src]="isMainPage ? '/assets/signin_main.svg' : '/assets/signin_all.svg'" />Sign in</span
-        >
+      <button mat-stroked-button class="sing-in-button" (click)="isLogged ? openSettings() : openDialog()">
+        <span class="sing-in-text" [ngClass]="{ main: isMainPage }" *ngIf="isLogged; else elseDirect">{{ fullName }}</span>
+        <ng-template #elseDirect>
+          <span class="sing-in-text" [ngClass]="{ main: isMainPage }">
+            <img class="img-signin" [src]="isMainPage ? '/assets/signin_main.svg' : '/assets/signin_all.svg'" />Sign in</span
+          >
+        </ng-template>
       </button>
       <button mat-button class="cart-button">
         <span class="cart" [ngClass]="{ main: isMainPage }">

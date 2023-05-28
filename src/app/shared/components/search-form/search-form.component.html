@@ -1,4 +1,4 @@
-<form class="search-form" [formGroup]="form" [ngClass]="{isEditForm}">
+<form class="search-form" [formGroup]="form" [ngClass]="{isEditForm}" (ngSubmit)="onSubmit()">
   <mat-radio-group color="primary" formControlName="tripType" class="matRadioGroup">
     <mat-radio-button value="1" checked="true"><span class="radio-text">Round Trip</span></mat-radio-button>
     <mat-radio-button value="2" class="radio-text"><span class="radio-text">One Way</span></mat-radio-button>
@@ -186,5 +186,5 @@
       >
     </mat-form-field>
   </div>
-  <button mat-flat-button color="primary" class="submit-button" (click)="onSubmit()">Search</button>
+  <button mat-flat-button color="primary" class="submit-button" type="submit">Search</button>
 </form>
