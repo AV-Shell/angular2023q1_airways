@@ -135,6 +135,55 @@
   }
 }
 
+.hint-error-container {
+  display: none;
+}
+
+.passengers.invalid.ng-touched{
+  .hint-error-container {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+::ng-deep .passengers.invalid.ng-touched {
+  .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: #f44336;
+  }
+
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color:#f44336;
+    }
+
+    .mdc-floating-label {
+      color: #f44336;
+    }
+
+    div.mdc-notched-outline__notch {
+      label.mdc-floating-label.mat-mdc-floating-label {
+        overflow: initial;
+        mat-label {
+          background:  linear-gradient(transparent, $secondary-90);;
+          padding-right: 5px;
+
+          .dialog-content &{
+            background:  linear-gradient(white, $secondary-90);;
+          }
+        }
+      }
+    }
+  }
+
+}
+
 ::ng-deep .passangers-input-container {
   .mat-mdc-option.mdc-list-item--disabled {
     opacity: 1;
@@ -196,4 +245,8 @@
   .display-none {
     display: none !important;
   }
+}
+
+.invisible {
+  display: none !important;
 }
