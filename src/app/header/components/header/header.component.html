@@ -1,0 +1,52 @@
+<header class="contentWrapper app-header" [ngClass]="{ notMainPage: !isMainPage }">
+  <div class="info-container">
+    <img class="img-logo" src="/assets/logo.svg" (click)="onLogoClick()" />
+    <mat-stepper *ngIf="showStepper" [linear]="true" #stepper (selectionChange)="log($event)" class="stepper">
+      <mat-step label="Flights" [state]="myStep.s1"> </mat-step>
+      <mat-step label="Passengers" [state]="myStep.s2"> </mat-step>
+      <mat-step label="Review & Payment" [state]="myStep.s3"> </mat-step>
+    </mat-stepper>
+    <div *ngIf="isMainPage" class="else-stepper">Book flights</div>
+  </div>
+  <div class="controls-container">
+    <div class="group-container">
+      <mat-form-field
+        appearance="outline"
+        class="data-format-select-wrapper"
+        [ngClass]="{ main: isMainPage }"
+        subscriptSizing="dynamic">
+        <mat-select class="custom-select" [value]="(commonState | async)?.dateFormat" (selectionChange)="onChangeDataFormat($event)">
+          <mat-option *ngFor="let item of datas" [value]="item.value">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="money-select-wrapper" [ngClass]="{ main: isMainPage }" subscriptSizing="dynamic">
+        <mat-select
+          class="money-select"
+          panelClass="money-select"
+          [value]="(commonState | async)?.moneyFormat"
+          (selectionChange)="onChangeMoneyFormat($event)">
+          <mat-option *ngFor="let item of moneys" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="group-container">
+      <button mat-stroked-button class="sing-in-button" (click)="isLogged ? openSettings() : openDialog()">
+        <span class="sing-in-text" [ngClass]="{ main: isMainPage }" *ngIf="isLogged; else elseDirect">{{ fullName }}</span>
+        <ng-template #elseDirect>
+          <span class="sing-in-text" [ngClass]="{ main: isMainPage }">
+            <img class="img-signin" [src]="isMainPage ? '/assets/signin_main.svg' : '/assets/signin_all.svg'" />Sign in</span
+          >
+        </ng-template>
+      </button>
+      <button mat-button class="cart-button">
+        <span class="cart" [ngClass]="{ main: isMainPage }">
+          <img class="img-signin" [src]="isMainPage ? '/assets/cart_main.svg' : '/assets/cart_all.svg'"
+        /></span>
+      </button>
+    </div>
+  </div>
+</header>

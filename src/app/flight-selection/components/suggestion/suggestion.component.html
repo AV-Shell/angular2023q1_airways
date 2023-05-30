@@ -1,0 +1,70 @@
+<ng-container *ngIf="value">
+  <div class="flight-info">
+    <img [ngClass]="{ img: true, backWay }" src="/assets/airplane1.svg" />
+    <span class="text">{{ airports.airportFrom }}</span>
+    <span class="text">to</span>
+    <span class="text">{{ airports.airportTo }}</span>
+  </div>
+
+  <div [ngClass]="{ hidden1: selected }">
+    <ngx-slick-carousel
+      (init)="slickInit($event)"
+      (afterChange)="afterChange($event)"
+      (beforeChange)="beforeChange($event)"
+      [ngClass]="{ backWay, thereWay: !backWay, unclickable }"
+      class="datasCarousel"
+      #slickDates="slick-carousel"
+      [config]="backWay ? dayInfoSliderBack : dayInfoSliderThere">
+      <div ngxSlickItem *ngFor="let slide of value; let i = index" class="slide" (click)="slickDates.slickGoTo(i)">
+        <app-flight-min-info
+          [value]="slide"
+          [formats]="formats"
+          [selected]="selectedIndex === i"
+          [ngClass]="{ dataMini: true, selected: selectedIndex === i }"></app-flight-min-info>
+      </div>
+    </ngx-slick-carousel>
+
+    <ngx-slick-carousel
+      class="flightsCarousel"
+      [ngClass]="{ backWay, thereWay: !backWay, unclickable }"
+      #slickFlight="slick-carousel"
+      [config]="backWay ? flightInfoSliderBack : flightInfoSliderThere">
+      <div ngxSlickItem *ngFor="let slide of value; let i = index">
+        <app-flight-full-info
+          [selected]="selected && selectedIndex === i"
+          [ngClass]="{ hidden: selected && selectedIndex !== i }"
+          class="full"
+          [formats]="formats"
+          [value]="slide"
+          [index]="i"
+          [airports]="airports"
+          [backWay]="backWay">
+        </app-flight-full-info>
+      </div>
+    </ngx-slick-carousel>
+  </div>
+
+  <div [ngClass]="{ hidden1: !selected }">
+    <app-flight-full-info
+      [selected]="selected"
+      class="full"
+      [formats]="formats"
+      [value]="value[selectedIndex]"
+      [index]="selectedIndex"
+      [airports]="airports"
+      [backWay]="backWay">
+    </app-flight-full-info>
+  </div>
+  <!-- <ng-template #selectedItem>
+    <app-flight-full-info
+      [selected]="selected"
+      class="full"
+      [formats]="formats"
+      [value]="value[selectedIndex]"
+      [index]="selectedIndex"
+      [airports]="airports"
+      [backWay]="backWay">
+    </app-flight-full-info>
+  </ng-template>
+</ng-container> -->
+</ng-container>

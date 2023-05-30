@@ -1,0 +1,197 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-direction: column;
+
+  .app-header {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    flex: 1 1 100%;
+    @include flex(flex, row, space-between, center, wrap, 14px);
+
+    &.notMainPage {
+      background-color: $neutral-100;
+    }
+
+    .info-container {
+      flex: 1 1 200px;
+      @include flex(flex, row, space-between, center, nowrap, 14px);
+
+      .img-logo {
+        cursor: pointer;
+      }
+
+      .stepper {
+        flex: 1 1 100%;
+        pointer-events: none;
+      }
+
+      .else-stepper {
+        white-space: nowrap;
+        padding: 8px 16px;
+        flex: 0 0;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+        color: $neutral-100;
+      }
+
+      @media #{$media-phone} {
+        display: none;
+      }
+    }
+
+    .controls-container {
+      @include flex(flex, row, flex-start, center, nowrap, 14px);
+
+      padding: 10px 0px;
+
+      .group-container {
+        @include flex(flex, row, flex-start, center, nowrap, 14px);
+
+        .sing-in-button {
+          height: 40px;
+          background: $neutral-90;
+          border: 1px solid $neutral-60;
+          border-radius: 4px;
+          transition: box-shadow 0.1s ease-in-out;
+
+          &:hover {
+            box-shadow: 0px 0px 2px 1px #d5d5d5;
+          }
+
+          .sing-in-text {
+            @include flex(flex, row, flex-start, center, nowrap, 8px);
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            color: $neutral-10;
+
+            &.main {
+              color: white;
+            }
+          }
+        }
+        .cart-button {
+          height: 40px;
+          min-width: 62px;
+          border-radius: 4px;
+          transition: box-shadow 0.1s ease-in-out;
+        }
+      }
+
+      @media #{$media-phone} {
+        flex-wrap: wrap;
+      }
+    }
+
+    .data-format-select-wrapper,
+    .money-select-wrapper,
+    .sing-in-button,
+    .cart-button {
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+
+    .cart-button {
+      mat-icon {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .delimiter {
+    height: 1px;
+    width: 80px;
+    background-color: rgba(116, 118, 122, 0.6);
+    margin: 0 8px 0 0;
+
+    flex: 1 1;
+    align-self: center;
+  }
+
+  .unavailable {
+    pointer-events: none;
+  }
+
+  .stepper {
+    background-color: transparent;
+  }
+  .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
+    display: none !important;
+  }
+}
+
+::ng-deep .app-header.contentWrapper {
+  .mat-horizontal-content-container {
+    padding: 0 !important;
+  }
+
+  .money-select-wrapper {
+    .mat-mdc-form-field-infix {
+      width: 32px;
+      min-height: 40px;
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+  }
+
+  .data-format-select-wrapper {
+    .mat-mdc-form-field-infix {
+      width: 130px;
+      min-height: 40px;
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+  }
+
+  .money-select-wrapper.main,
+  .data-format-select-wrapper.main {
+    .mat-mdc-select-value {
+      color: white;
+    }
+
+    .mat-mdc-select-arrow-wrapper {
+      .mat-mdc-select-arrow {
+        color: white;
+      }
+    }
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background: $neutral-90 !important;
+    border: 1px solid $neutral-60 !important;
+    border-radius: 4px !important;
+    overflow: hidden;
+    transition: box-shadow 0.1s ease-in-out;
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border: none;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 2px 1px #d5d5d5;
+    }
+  }
+}
+
+::ng-deep .money-select {
+  .mat-mdc-select-arrow-wrapper {
+    display: none !important;
+  }
+
+  mat-pseudo-checkbox.mat-mdc-option-pseudo-checkbox {
+    display: none !important;
+    color: purple;
+  }
+}

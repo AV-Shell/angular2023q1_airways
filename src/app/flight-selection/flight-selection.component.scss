@@ -1,0 +1,67 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  display: block;
+  background-color: $neutral-80;
+  min-height: 100%;
+  flex-grow: 1;
+}
+
+.content {
+  position: relative;
+  padding: 48px 0 20px 0;
+
+  .page {
+    @include flex(flex, column, stretch, stretch, nowrap, 20px);
+  }
+
+  .edit-form {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    top: 0;
+    min-height: 96px;
+    background: $neutral-100;
+    background-color: white;
+    box-shadow: -8px 8px 10px 3px rgba(0, 0, 0, 0.2), 8px 8px 10px 3px rgba(0, 0, 0, 0.2);
+
+    .flight-selection-edit-form {
+      display: block;
+    }
+  }
+
+  .buttons-wrapper {
+    @include flex(flex, row, flex-end, center, nowrap, 40px);
+
+    .button {
+      width: 126px;
+      height: 60px;
+
+      &:not(.white):not([disabled]) {
+        background-color: $primary;
+      }
+
+      .button-text {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+        color: $primary;
+
+        &.white {
+          color: $neutral-100;
+        }
+
+        &.white {
+          color: $neutral-100;
+        }
+      }
+    }
+  }
+}

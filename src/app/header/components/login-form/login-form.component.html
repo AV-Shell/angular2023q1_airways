@@ -1,0 +1,23 @@
+<form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Enter your email" formControlName="email" />
+    <mat-error *ngIf="email?.invalid">Enter email please</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      placeholder="Enter your password"
+      formControlName="password"
+      class="full-width" />
+    <mat-error *ngIf="password?.invalid">Enter password please</mat-error>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <p class="password-restore">Forgot Password?</p>
+  <button mat-flat-button color="primary" class="full-width">Log in</button>
+  <mat-error *ngIf="form?.hasError('error')">Email or password is incorrect</mat-error>
+</form>

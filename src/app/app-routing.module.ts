@@ -1,10 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
+import { preventLoadGuard } from './core/guards/preventLoadGuard';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: 'main', loadChildren: () => import('./main/main.module').then(m => m.MainModule) },
+  {
+    path: 'flight-selection',
+    loadChildren: () => import('./flight-selection/flight-selection.module').then(m => m.FlightSelectionModule),
+    canActivate: [preventLoadGuard]
+  },
+  {
+    path: 'passengers-info',
+    loadChildren: () => import('./passengers-info/passengers-info.module').then(m => m.PassengersInfoModule),
+    canActivate: [preventLoadGuard]
+  },
+  { path: 'summary', loadChildren: () => import('./summary/summary.module').then(m => m.SummaryModule) },
+  { path: 'cart', loadChildren: () => import('./cart/cart.module').then(m => m.CartModule) },
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
+  { path: '**', component: NotFoundPageComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

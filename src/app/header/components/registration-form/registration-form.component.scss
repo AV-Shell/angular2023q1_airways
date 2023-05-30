@@ -1,0 +1,109 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  display: block;
+
+  .registration-form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.gender {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.gender-button {
+  display: flex;
+  justify-content: center;
+  padding-left: 5px;
+  width: 50%;
+  position: relative;
+}
+
+.mat-button-toggle-checked {
+  background-color: $secondary-90;
+  color: $primary;
+
+  &::before {
+    content: url('/assets/icon.svg');
+    position: absolute;
+    top: 35%;
+    left: calc(50% - 38px);
+  }
+}
+
+.phone-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.policy {
+  margin: 30px 0;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  color: $neutral;
+}
+
+::ng-deep.custom-tooltip {
+  .mdc-tooltip__surface {
+    background-color: $neutral-100 !important;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: $neutral !important;
+    padding: 16px 24px;
+
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+}
+
+.form-input {
+  margin-bottom: 20px;
+}
+
+.material-symbols-error {
+  color: $red;
+}
+
+.error-message:not(:last-child)::after {
+  content: ',';
+}
+
+::ng-deep .citizenship-option .mdc-list-item__primary-text {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.citizenship-country {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  color: $neutral;
+}
+
+.citizenship-country-code {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color: $neutral-60;
+}

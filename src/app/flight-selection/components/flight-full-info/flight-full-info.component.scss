@@ -1,0 +1,239 @@
+@import 'src/app/styles/common.scss';
+
+:host {
+  display: block;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+
+  .container {
+    @include flex(flex, row, space-between, center, nowrap, 20px);
+
+    background-color: $neutral-100;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
+    &.bookingFormContentWrapper {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+    @media #{$media-mobile} {
+      flex-direction: column;
+      gap: 0px;
+    }
+  }
+
+  .delimiter {
+    // align-content: stretch;
+    align-self: stretch;
+    border-left: 2px dashed $secondary-40;
+
+    @media #{$media-mobile} {
+      border-left: 0px;
+      border-top: 2px dashed $secondary-40;
+    }
+  }
+
+  .flex1 {
+    flex: 1 1 72%;
+    padding-top: 27px;
+    padding-bottom: 27px;
+    @include flex(flex, row, space-between, center, nowrap, 20px);
+
+    @media #{$media-mobile} {
+      align-self: stretch;
+    }
+
+    @media #{$media-phone} {
+      align-self: stretch;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .fromContainer {
+      @include flex(flex, column, space-between, flex-start, nowrap, 4px);
+    }
+
+    .toContainer {
+      @include flex(flex, column, space-between, flex-end, nowrap, 4px);
+    }
+
+    .during {
+      @include flex(flex, column, space-between, stretch, nowrap, 4px);
+      flex: 1 1 100px;
+      align-self: stretch;
+      position: relative;
+      text-align: center;
+      white-space: nowrap;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+      color: black;
+
+      @media #{$media-phone} {
+        flex-basis: 0%;
+        gap: 40px;
+      }
+
+      .img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -70%) scaleX(-1);
+
+        &.backWay {
+          transform: translate(-50%, -70%);
+        }
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: $secondary-40;
+        top: calc(50% - 1px);
+        position: absolute;
+      }
+    }
+
+    .fromContainer,
+    .toContainer {
+      white-space: nowrap;
+      .date {
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: $neutral-30;
+      }
+
+      .timeContainer {
+        @include flex(flex, row, flex-start, center, nowrap, 16px);
+
+        .time {
+          font-weight: 700;
+          font-size: 30px;
+          line-height: 36px;
+          color: black;
+        }
+
+        .utc {
+          font-size: 8px;
+          line-height: 20px;
+          color: $neutral-30;
+        }
+      }
+
+      .city {
+        white-space: initial;
+      }
+    }
+
+    .flightNo {
+      @include flex(flex, row, flex-start, center, wrap, 16px);
+      flex: 1 1;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.25px;
+
+      .field {
+        color: $neutral-30;
+      }
+
+      .text {
+        color: black;
+      }
+    }
+  }
+
+  .flex2 {
+    flex: 1 1 28%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    @include flex(flex, row, space-between, center, nowrap, 32px);
+
+    @media #{$media-tablets} {
+      align-self: stretch;
+    }
+
+    .flightInfoContainer {
+      text-align: right;
+      flex: 1 1 100%;
+      font-weight: 700;
+
+      .seatsContainer {
+        padding: 4px 8px;
+        font-size: 12px;
+        line-height: 16px;
+        color: $neutral-20;
+      }
+
+      .priceTitle {
+        font-size: 12px;
+        line-height: 16px;
+
+        color: #74767a;
+      }
+
+      .priceField {
+        font-size: 30px;
+        line-height: 36px;
+        color: $primary;
+
+        &.selected {
+          color: black;
+        }
+      }
+    }
+
+    .select {
+      background: $gradient;
+      padding: 8px 16px;
+      flex-shrink: 0;
+      /* Primary */
+
+      border: 1px solid #11397e;
+      border-radius: 4px;
+      .selectText {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: $neutral-100;
+      }
+    }
+    .edit {
+      padding: 4px 8px;
+      flex-shrink: 0;
+      min-width: 44px;
+      .editText {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: $primary;
+      }
+    }
+  }
+
+  .unaviableBlock {
+    @include flex(flex, column, space-between, center, nowrap, 10px);
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    color: $neutral-30;
+
+    padding-top: 27px;
+    padding-bottom: 27px;
+    text-align: center;
+
+    .img-unaviable {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}

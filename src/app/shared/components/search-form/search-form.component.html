@@ -1,0 +1,190 @@
+<form class="search-form" [formGroup]="form" [ngClass]="{isEditForm}" (ngSubmit)="onSubmit()">
+  <mat-radio-group color="primary" formControlName="tripType" class="matRadioGroup">
+    <mat-radio-button value="1" checked="true"><span class="radio-text">Round Trip</span></mat-radio-button>
+    <mat-radio-button value="2" class="radio-text"><span class="radio-text">One Way</span></mat-radio-button>
+  </mat-radio-group>
+  <div class="destination">
+    <mat-form-field class="destination-input" appearance="outline">
+      <mat-label>From</mat-label>
+      <input type="text" placeholder="Departure" aria-label="From" matInput formControlName="from" [matAutocomplete]="departure" />
+      <mat-error *ngIf="from?.invalid">From field is required</mat-error>
+      <mat-autocomplete #departure="matAutocomplete">
+        <mat-option *ngFor="let airport of filteredFrom | async" [value]="buildValue(airport)">
+          <div class="airport-name">
+            {{ airport.name }} <span>({{ airport.code }})</span>
+          </div>
+
+          <div class="airport-info">{{ airport.city }}, {{ airport.country }}</div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="destination-input" appearance="outline">
+      <mat-label>Destination</mat-label>
+      <input
+        type="text"
+        placeholder="Choose your destination"
+        aria-label="Destination"
+        matInput
+        formControlName="to"
+        [matAutocomplete]="destination" />
+      <mat-error *ngIf="to?.invalid">Destination field is required</mat-error>
+      <mat-autocomplete #destination="matAutocomplete">
+        <mat-option *ngFor="let airport of filteredTo | async" [value]="buildValue(airport)">
+          <div class="airport-name">
+            {{ airport.name }} <span>({{ airport.code }})</span>
+          </div>
+
+          <div class="airport-info">{{ airport.city }}, {{ airport.country }}</div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="switchAirports()" type="button" class="changeDestinationButton">
+      <mat-icon>sync_alt</mat-icon>
+    </button>
+    <ng-container *ngIf="isOneWay; else rangeDatePicker">
+      <mat-form-field class="date" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="start" />
+        <input class="invisible" formControlName="end" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-error *ngIf="start?.hasError('required')">Choose departure date, please</mat-error>
+        <mat-datepicker #picker>
+          <mat-date-range-picker-actions>
+            <button mat-button color="primary" matDateRangePickerCancel>Cancel</button>
+            <button mat-button color="primary" matDateRangePickerApply>OK</button>
+          </mat-date-range-picker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </ng-container>
+    <ng-template #rangeDatePicker>
+      <mat-form-field class="date" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker" [min]="minDate" [max]="maxDate">
+          <input matStartDate placeholder="Start date" formControlName="start" />
+          <input matEndDate placeholder="End date" formControlName="end" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker-actions>
+            <button mat-button color="primary" matDateRangePickerCancel>Cancel</button>
+            <button mat-button color="primary" matDateRangePickerApply>OK</button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+        <mat-error *ngIf="start?.hasError('required')">Choose departure date, please</mat-error>
+        <mat-error *ngIf="end?.hasError('required')">Choose return date, please</mat-error>
+      </mat-form-field>
+    </ng-template>
+
+    <mat-form-field class="passengers" appearance="outline" [ngClass]="{ invalid: !!passengersErrors }">
+      <mat-label>Passengers*</mat-label>
+      <mat-select [value]="passengersValue ? 'fakestate' : ''" formControlName="fakeControl">
+        <mat-select-trigger>
+          {{ passengersValue }}
+        </mat-select-trigger>
+        <div class="passangers-input-container display-none">
+          <mat-option [value]="'fakestate'" disabled>{{ "'fakestate'" }}</mat-option>
+        </div>
+        <div class="passangers-input-container">
+          <mat-option class="passenger-option" disabled>
+            <div class="counter-wrapper">
+              <div class="passenger-description" [ngClass]="{ selected: !!adultsValue }">
+                <div class="main-info">Adults</div>
+                <div class="additional-info">14+ years</div>
+              </div>
+              <div class="counter-group passengers-counter">
+                <button mat-icon-button class="plusminusbuttons" (click)="decreasePassengers('adults')">
+                  <svg viewBox="0 0 240 240" style="width: 16px; height: 16px">
+                    <line _ngcontent-ibq-c53="" x1="0" x2="239" y1="120" y2="120" stroke="#454A53" stroke-width="30"></line>
+                  </svg>
+                </button>
+                <input
+                  formControlName="adults"
+                  #adults
+                  class="plusminusinput"
+                  [ngClass]="{ selected: !!adultsValue }"
+                  type="number"
+                  min="0"
+                  max="99"
+                  (input)="setInputStyleEvent($event)"
+                  oninput="this.value=(this.value ? Number(this.value) : 0 )" />
+                <button mat-icon-button class="plusminusbuttons" (click)="increasePassengers('adults')">
+                  <svg viewBox="0 0 240 240" style="width: 16px; height: 16px">
+                    <line _ngcontent-ibq-c53="" x1="0" x2="239" y1="120" y2="120" stroke="#454A53" stroke-width="30"></line>
+                    <line _ngcontent-ibq-c53="" x1="120" x2="120" y1="0" y2="239" stroke="#454A53" stroke-width="30"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </mat-option>
+          <mat-option class="passenger-option" disabled
+            ><div class="counter-wrapper">
+              <div class="passenger-description" [ngClass]="{ selected: !!childValue }">
+                <div class="main-info">Child</div>
+                <div class="additional-info">2-14 years</div>
+              </div>
+              <div class="counter-group passengers-counter">
+                <button mat-icon-button class="plusminusbuttons" (click)="decreasePassengers('child')">
+                  <svg viewBox="0 0 240 240">
+                    <line _ngcontent-ibq-c53="" x1="0" x2="239" y1="120" y2="120" stroke="#454A53" stroke-width="30"></line>
+                  </svg>
+                </button>
+                <input
+                  formControlName="child"
+                  #child
+                  class="plusminusinput"
+                  [ngClass]="{ selected: !!childValue }"
+                  type="number"
+                  min="0"
+                  max="99"
+                  (input)="setInputStyleEvent($event)"
+                  oninput="this.value=(this.value ? Number(this.value) : 0 )" />
+                <button mat-icon-button class="plusminusbuttons" (click)="increasePassengers('child')">
+                  <svg viewBox="0 0 240 240">
+                    <line _ngcontent-ibq-c53="" x1="0" x2="239" y1="120" y2="120" stroke="#454A53" stroke-width="30"></line>
+                    <line _ngcontent-ibq-c53="" x1="120" x2="120" y1="0" y2="239" stroke="#454A53" stroke-width="30"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </mat-option>
+          <mat-option class="passenger-option" disabled
+            ><div class="counter-wrapper">
+              <div class="passenger-description" [ngClass]="{ selected: !!infantsValue }">
+                <div class="main-info">Infants</div>
+                <div class="additional-info">0-2 years</div>
+              </div>
+              <div class="counter-group passengers-counter">
+                <button mat-icon-button class="plusminusbuttons" (click)="decreasePassengers('infants')">
+                  <svg viewBox="0 0 240 240">
+                    <line _ngcontent-ibq-c53="" x1="0" x2="239" y1="120" y2="120" stroke="#454A53" stroke-width="30"></line>
+                  </svg>
+                </button>
+                <input
+                  formControlName="infants"
+                  #infants
+                  class="plusminusinput"
+                  [ngClass]="{ selected: !!infantsValue }"
+                  type="number"
+                  min="0"
+                  max="99"
+                  (input)="setInputStyleEvent($event)"
+                  oninput="this.value=(this.value ? Number(this.value) : 0 )" />
+                <button mat-icon-button class="plusminusbuttons" (click)="increasePassengers('infants')">
+                  <svg viewBox="0 0 240 240" style="width: 16px; height: 16px">
+                    <line _ngcontent-ibq-c53="" x1="0" x2="239" y1="120" y2="120" stroke="#454A53" stroke-width="30"></line>
+                    <line _ngcontent-ibq-c53="" x1="120" x2="120" y1="0" y2="239" stroke="#454A53" stroke-width="30"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </mat-option>
+        </div>
+      </mat-select>
+
+      <mat-hint class="hint-error-container"
+        ><mat-error *ngIf="passengersErrors">{{ passengersErrors }}</mat-error></mat-hint
+      >
+    </mat-form-field>
+  </div>
+  <button mat-flat-button color="primary" class="submit-button" type="submit">Search</button>
+</form>

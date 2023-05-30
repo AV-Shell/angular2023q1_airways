@@ -1,0 +1,25 @@
+$media-phone: 'screen and (max-width: 767px)';
+$media-mobile: 'screen and (max-width: 1280px)';
+$media-tablets: 'screen and (min-width: 768px) and (max-width: 1280px)';
+$media-desktop: 'screen and (min-width: 1280px)';
+$media-sdesktop: 'screen and (max-width: 1430px)';
+
+@mixin respondTo($media) {
+  @if $media == mediaPhone {
+    @media #{$media-phone} {
+      @content;
+    }
+  } @else if $media == mediaMobile {
+    @media #{$media-mobile} {
+      @content;
+    }
+  } @else if $media == mediaTablets {
+    @media #{$media-tablets} {
+      @content;
+    }
+  } @else if $media == mediaDesktop {
+    @media #{$media-desktop} {
+      @content;
+    }
+  }
+}

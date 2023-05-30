@@ -1,0 +1,66 @@
+<div class="container bookingFormContentWrapper" *ngIf="!unaviable; else unaviableBlock">
+  <div class="flex1">
+    <div class="fromContainer">
+      <span class="date">{{ startDate | date : 'EEE, d MMM yyyy' }}</span>
+      <span class="timeContainer">
+        <span class="time">{{ startDate | date : 'HH:mm' }}</span>
+        <span class="utc">{{ startDate | date : 'z' }}</span>
+      </span>
+      <span class="city">{{ airports.airportFrom }}</span>
+    </div>
+    <div class="during">
+      <span class="time">{{ timeWay }}</span>
+      <img class="img" [ngClass]="{ backWay }" width="44px" src="/assets/airplane3.svg" />
+      <div>
+        <div *ngIf="isDirect; else elseDirect">Direct</div>
+        <ng-template #elseDirect>
+          <div>Connected</div>
+        </ng-template>
+
+        <div>{{ connectedText }}</div>
+      </div>
+    </div>
+    <div class="toContainer">
+      <span class="date">{{ endDate | date : 'EEE, d MMM yyyy' }}</span>
+      <span class="timeContainer">
+        <span class="utc">{{ endDate | date : 'z' }}</span>
+        <span class="time">{{ endDate | date : 'HH:mm' }}</span>
+      </span>
+      <span class="city">{{ airports.airportTo }}</span>
+    </div>
+    <div class="flightNo">
+      <span class="field">Flight no.</span>
+      <span class="text">{{ this.value?.flightNumber }}</span>
+    </div>
+  </div>
+  <div class="delimiter" *ngIf="!selected"></div>
+  <div class="flex2">
+    <div class="flightInfoContainer">
+      <div class="seatsContainer" *ngIf="!selected" appCounterColor [count]="this.value?.available" [styleName]="'background-color'">
+        <div class="seats">{{ this.value?.available }} seats</div>
+        <div class="seats">available</div>
+      </div>
+      <div class="priceTitle" *ngIf="!selected">Price</div>
+      <div class="priceField" [ngClass]="{ selected }">{{ money | currency : currencyFormat : 'symbol-narrow' }}</div>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      class="select"
+      *ngIf="!selected; else selectedBlock"
+      (click)="$event.stopPropagation(); onSelectClick()">
+      <span class="selectText">Select</span>
+    </button>
+    <ng-template #selectedBlock>
+      <button class="edit" mat-button color="primary">
+        <span class="editText" (click)="$event.stopPropagation(); onEditClick()">Edit</span>
+      </button>
+    </ng-template>
+  </div>
+</div>
+<ng-template #unaviableBlock>
+  <div class="unaviableBlock bookingFormContentWrapper">
+    <img class="img-unaviable" src="/assets/flight_unaviable_s.svg" />
+    <span class="text">There are no flights on the date you have chosen</span>
+  </div>
+</ng-template>

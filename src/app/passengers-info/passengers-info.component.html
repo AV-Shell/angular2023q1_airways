@@ -1,0 +1,295 @@
+<app-request-info [flightSearchState]="flightSearch"></app-request-info>
+<div class="contentWrapper">
+  <form class="content" [formGroup]="form">
+    <h2 class="h2-heading"><mat-icon class="icon">person</mat-icon>Passengers</h2>
+    <p class="text">Enter the passenger's names as they appear on document (passport or ID).</p>
+    <div class="card-array">
+      <div class="card" formArrayName="adultsArray" *ngFor="let adultA of adultsArray.controls; let i = index">
+        <h3 class="titleCard">{{ i + 1 }}. Adult</h3>
+        <div [formGroupName]="i" class="fieldsContainer">
+          <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Enter your first name" type="text" formControlName="firstName" />
+            <mat-error *ngIf="getArrayField('adultsArray', i, 'firstName')?.hasError('required')"
+              >Please enter your first name</mat-error
+            >
+            <mat-error *ngIf="getArrayField('adultsArray', i, 'firstName')?.hasError('onlyLetters')" class="error-message">{{
+              getArrayField('adultsArray', i, 'firstName')?.errors?.['onlyLetters']
+            }}</mat-error>
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              aria-label="Example icon button with an info icon"
+              matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
+              matTooltipClass="custom-tooltip">
+              <mat-icon
+                *ngIf="
+                  getArrayField('adultsArray', i, 'firstName')?.invalid && getArrayField('adultsArray', i, 'firstName')?.touched;
+                  else correctIcon
+                "
+                class="material-symbols-error"
+                >info</mat-icon
+              >
+            </button>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Enter your last name" type="text" formControlName="lastName" />
+            <mat-error *ngIf="getArrayField('adultsArray', i, 'lastName')?.hasError('required')"
+              >Please enter your first name</mat-error
+            >
+            <mat-error
+              *ngIf="getArrayField('adultsArray', i, 'lastName')?.errors?.['onlyLetters'] as onlyLetters"
+              class="error-message"
+              >{{ onlyLetters }}</mat-error
+            >
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              aria-label="Example icon button with an info icon"
+              matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
+              matTooltipClass="custom-tooltip">
+              <mat-icon
+                *ngIf="
+                  getArrayField('adultsArray', i, 'lastName')?.invalid && getArrayField('adultsArray', i, 'lastName')?.touched;
+                  else correctIcon
+                "
+                class="material-symbols-error"
+                >info</mat-icon
+              >
+            </button>
+          </mat-form-field>
+          <mat-form-field class="full-width form-input" [subscriptSizing]="'dynamic'" appearance="outline">
+            <mat-label>Date of birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" />
+            <mat-error *ngIf="getArrayField('adultsArray', i, 'date')?.hasError('required')"
+              >Please enter your date of birth</mat-error
+            >
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker>
+              <mat-date-range-picker-actions>
+                <button mat-button color="primary" matDateRangePickerCancel>Cancel</button>
+                <button mat-button color="primary" matDateRangePickerApply>OK</button>
+              </mat-date-range-picker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+          <ng-template #correctIcon>
+            <mat-icon>info_outlined</mat-icon>
+          </ng-template>
+
+          <mat-button-toggle-group name="gender" class="gender form-input" formControlName="gender">
+            <mat-button-toggle value="male" class="gender-button">Male</mat-button-toggle>
+            <mat-button-toggle value="female" class="gender-button">Female</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="helpContainer">
+          <mat-slide-toggle color="primary" class="text-small icon"
+            ><mat-icon class="icon">wheelchair_pickup</mat-icon>Need special assistance?</mat-slide-toggle
+          >
+        </div>
+      </div>
+      <div class="card" formArrayName="kidsArray" *ngFor="let kid of kidsArray.controls; let i = index">
+        <h3 class="titleCard">{{ i + 1 }}. Child</h3>
+        <div [formGroupName]="i" class="fieldsContainer">
+          <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Enter your first name" type="text" formControlName="firstName" />
+            <mat-error *ngIf="getArrayField('kidsArray', i, 'firstName')?.hasError('required')"
+              >Please enter your first name</mat-error
+            >
+            <mat-error *ngIf="getArrayField('kidsArray', i, 'firstName')?.hasError('onlyLetters')" class="error-message">{{
+              getArrayField('kidsArray', i, 'firstName')?.errors?.['onlyLetters']
+            }}</mat-error>
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              aria-label="Example icon button with an info icon"
+              matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
+              matTooltipClass="custom-tooltip">
+              <mat-icon
+                *ngIf="
+                  getArrayField('kidsArray', i, 'firstName')?.invalid && getArrayField('kidsArray', i, 'firstName')?.touched;
+                  else correctIcon
+                "
+                class="material-symbols-error"
+                >info</mat-icon
+              >
+            </button>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Enter your last name" type="text" formControlName="lastName" />
+            <mat-error *ngIf="getArrayField('kidsArray', i, 'lastName')?.hasError('required')">Please enter your first name</mat-error>
+            <mat-error
+              *ngIf="getArrayField('kidsArray', i, 'lastName')?.errors?.['onlyLetters'] as onlyLetters"
+              class="error-message"
+              >{{ onlyLetters }}</mat-error
+            >
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              aria-label="Example icon button with an info icon"
+              matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
+              matTooltipClass="custom-tooltip">
+              <mat-icon
+                *ngIf="
+                  getArrayField('kidsArray', i, 'lastName')?.invalid && getArrayField('kidsArray', i, 'lastName')?.touched;
+                  else correctIcon
+                "
+                class="material-symbols-error"
+                >info</mat-icon
+              >
+            </button>
+          </mat-form-field>
+          <mat-form-field class="full-width form-input" [subscriptSizing]="'dynamic'" appearance="outline">
+            <mat-label>Date of birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" />
+            <mat-error *ngIf="getArrayField('kidsArray', i, 'date')?.hasError('required')">Please enter your date of birth</mat-error>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker>
+              <mat-date-range-picker-actions>
+                <button mat-button color="primary" matDateRangePickerCancel>Cancel</button>
+                <button mat-button color="primary" matDateRangePickerApply>OK</button>
+              </mat-date-range-picker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+          <ng-template #correctIcon>
+            <mat-icon>info_outlined</mat-icon>
+          </ng-template>
+
+          <mat-button-toggle-group name="gender" class="gender form-input" formControlName="gender">
+            <mat-button-toggle value="male" class="gender-button">Male</mat-button-toggle>
+            <mat-button-toggle value="female" class="gender-button">Female</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="helpContainer">
+          <mat-slide-toggle color="primary" class="text-small icon"
+            ><mat-icon class="icon">wheelchair_pickup</mat-icon>Need special assistance?</mat-slide-toggle
+          >
+        </div>
+      </div>
+      <div class="card" formArrayName="infantsArray" *ngFor="let infant of infantsArray.controls; let i = index">
+        <h3 class="titleCard">{{ i + 1 }}. Infant</h3>
+        <div [formGroupName]="i" class="fieldsContainer">
+          <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Enter your first name" type="text" formControlName="firstName" />
+            <mat-error *ngIf="getArrayField('infantsArray', i, 'firstName')?.hasError('required')"
+              >Please enter your first name</mat-error
+            >
+            <mat-error *ngIf="getArrayField('infantsArray', i, 'firstName')?.hasError('onlyLetters')" class="error-message">{{
+              getArrayField('infantsArray', i, 'firstName')?.errors?.['onlyLetters']
+            }}</mat-error>
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              aria-label="Example icon button with an info icon"
+              matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
+              matTooltipClass="custom-tooltip">
+              <mat-icon
+                *ngIf="
+                  getArrayField('infantsArray', i, 'firstName')?.invalid && getArrayField('infantsArray', i, 'firstName')?.touched;
+                  else correctIcon
+                "
+                class="material-symbols-error"
+                >info</mat-icon
+              >
+            </button>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width form-input" [subscriptSizing]="'dynamic'">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Enter your last name" type="text" formControlName="lastName" />
+            <mat-error *ngIf="getArrayField('infantsArray', i, 'lastName')?.hasError('required')"
+              >Please enter your first name</mat-error
+            >
+            <mat-error
+              *ngIf="getArrayField('infantsArray', i, 'lastName')?.errors?.['onlyLetters'] as onlyLetters"
+              class="error-message"
+              >{{ onlyLetters }}</mat-error
+            >
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              aria-label="Example icon button with an info icon"
+              matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname."
+              matTooltipClass="custom-tooltip">
+              <mat-icon
+                *ngIf="
+                  getArrayField('infantsArray', i, 'lastName')?.invalid && getArrayField('infantsArray', i, 'lastName')?.touched;
+                  else correctIcon
+                "
+                class="material-symbols-error"
+                >info</mat-icon
+              >
+            </button>
+          </mat-form-field>
+          <mat-form-field class="full-width form-input" [subscriptSizing]="'dynamic'" appearance="outline">
+            <mat-label>Date of birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date" />
+            <mat-error *ngIf="getArrayField('infantsArray', i, 'date')?.hasError('required')"
+              >Please enter your date of birth</mat-error
+            >
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker>
+              <mat-date-range-picker-actions>
+                <button mat-button color="primary" matDateRangePickerCancel>Cancel</button>
+                <button mat-button color="primary" matDateRangePickerApply>OK</button>
+              </mat-date-range-picker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+          <ng-template #correctIcon>
+            <mat-icon>info_outlined</mat-icon>
+          </ng-template>
+
+          <mat-button-toggle-group name="gender" class="gender form-input" formControlName="gender">
+            <mat-button-toggle value="male" class="gender-button">Male</mat-button-toggle>
+            <mat-button-toggle value="female" class="gender-button">Female</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h2-heading"><mat-icon class="icon">contact_page</mat-icon>Contact details</h2>
+    <p class="text">We need contact details to be able to deliver the latest information regarding your flight.</p>
+    <div class="contact-card" formGroupName="contact">
+      <div class="phone-container">
+        <mat-form-field appearance="outline" class="form-input">
+          <mat-label>Country code</mat-label>
+          <mat-select formControlName="phoneCode" required>
+            <mat-option *ngFor="let country of countries" [value]="country.dialCode">
+              {{ country.name }} ({{ country.dialCode }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-input">
+          <mat-label>Mobile phone number</mat-label>
+          <input matInput type="tel" placeholder="e.g. 1111111111" formControlName="phone" />
+          <mat-error *ngIf="phoneGet?.hasError('required')">Please enter your phone number</mat-error>
+          <mat-error *ngIf="phoneGet?.hasError('pattern')" class="error-message">Number should contain 10 digits</mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline" class="email-input" [subscriptSizing]="'dynamic'">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Enter your email" formControlName="email" />
+        <mat-error *ngIf="this.form.get('contact.email')?.hasError('required')">Please enter a email</mat-error>
+        <mat-error *ngIf="this.form.get('contact.email')?.hasError('pattern')">The entered email is not correct</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="buttons-wrapper">
+      <button class="button white" mat-button color="primary" (click)="backClick()">
+        <span class="button-text">Back</span>
+      </button>
+      <button class="button" mat-raised-button color="primary" (click)="continueClick()" [disabled]="form.invalid">
+        <span class="button-text white">Continue</span>
+      </button>
+    </div>
+  </form>
+</div>

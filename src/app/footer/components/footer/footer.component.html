@@ -1,0 +1,19 @@
+<div class="contentWrapper">
+  <div class="bookingFormContentWrapper">
+    <div class="commonInfoContainer">
+      <div class="githubLinksContainer">
+        <app-githublink *ngFor="let github of githubs" [link]="github"> </app-githublink>
+      </div>
+      <p class="copyrights-text">© 2023, AIRWAY. All rights reserved.</p>
+    </div>
+    <div class="paymentInfoContainer">
+      <p class="payment-text">We accept these payment methods</p>
+      <div class="payment-icon-container">
+        <img class="img-responsive" src="/assets/mastercard.svg" />
+        <img class="img-responsive" src="/assets/amazon.svg" />
+        <img class="img-responsive" src="/assets/american.svg" />
+        <img class="img-responsive" src="/assets/visa.svg" />
+      </div>
+    </div>
+  </div>
+</div>

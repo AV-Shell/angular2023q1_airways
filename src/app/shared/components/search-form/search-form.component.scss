@@ -1,0 +1,325 @@
+@import './../../../styles/common.scss';
+
+.search-form {
+  width: 580px;
+  background: #ffffffd9;
+  border-radius: 8px;
+  padding: 24px;
+
+  @media #{$media-phone} {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
+.radio-text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: $primary !important;
+}
+
+.destination {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 0;
+
+  @media #{$media-phone} {
+    padding: 14px 0 0;
+  }
+
+  @include flex(flex, row, flex-start, flex-start, wrap, 4px 20px);
+
+  .destination-input:first-child {
+    @media #{$media-phone} {
+      margin-bottom: 4px;
+    }
+  }
+
+  .changeDestinationButton {
+    position: absolute;
+    left: 88%;
+    top: 66px;
+    @media #{$media-phone} {
+      top: 64px;
+    }
+  }
+
+  .date {
+    margin-top: 20px;
+    flex: 1 1 300px;
+    @media #{$media-phone} {
+      margin-top: 4px;
+      flex: 1 1 100%;
+
+      mat-error:not(:first-of-type) {
+        visibility: hidden;
+      }
+    }
+  }
+  .passengers {
+    margin-top: 20px;
+    flex: 1 1 210px;
+    @media #{$media-phone} {
+      margin-top: 4px;
+      flex: 1 1 100%;
+    }
+  }
+}
+
+.destination-input {
+  width: 100%;
+}
+
+.main-info {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.additional-info {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: $neutral-30;
+}
+
+.info-wrapper {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 12px;
+
+  @media #{$media-phone} {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.date {
+  flex-grow: 1;
+
+  @media #{$media-phone} {
+    width: 100%;
+  }
+}
+
+.passengers {
+  flex-basis: 210px;
+
+  @media #{$media-phone} {
+    width: 100%;
+    flex-basis: 0%;
+  }
+}
+
+.counter-wrapper {
+  display: flex;
+
+  .passenger-description {
+    flex: 1 1 100%;
+
+    &.selected {
+      color: $primary;
+    }
+  }
+
+  .counter-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 62px;
+  @media #{$media-phone} {
+    margin-left: 24px;
+  }
+}
+
+::ng-deep.passenger-option {
+  .mat-pseudo-checkbox {
+    display: none !important;
+  }
+  .mdc-list-item__primary-text {
+    display: block;
+    width: 100%;
+  }
+}
+
+.submit-button {
+  display: flex;
+  width: 126px;
+  height: 60px;
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+
+  @media #{$media-phone} {
+    width: 100%;
+  }
+}
+
+.hint-error-container {
+  display: none;
+}
+
+.passengers.invalid.ng-touched {
+  .hint-error-container {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+::ng-deep .passengers.invalid.ng-touched {
+  .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: #f44336;
+  }
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: #f44336;
+    }
+
+    .mdc-floating-label {
+      color: #f44336;
+    }
+
+    div.mdc-notched-outline__notch {
+      label.mdc-floating-label.mat-mdc-floating-label {
+        overflow: initial;
+        mat-label {
+          background: linear-gradient(transparent, $secondary-90);
+          padding-right: 5px;
+
+          .dialog-content & {
+            background: linear-gradient(white, $secondary-90);
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .passangers-input-container {
+  .mat-mdc-option.mdc-list-item--disabled {
+    opacity: 1;
+    pointer-events: initial;
+
+    .counter-group.passengers-counter {
+      .plusminusinput {
+        font-family: 'Roboto';
+        font-style: normal;
+        margin-left: auto;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        color: $neutral-30;
+
+        &.selected {
+          color: $primary;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        &[type='number'] {
+          -moz-appearance: textfield;
+        }
+
+        & {
+          width: 1.5ch;
+          outline: 0;
+          border: 0;
+        }
+      }
+
+      .plusminusbuttons {
+        padding: 0px;
+        height: 24px;
+        width: 24px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  &.display-none {
+    display: none !important;
+  }
+
+  .display-none {
+    display: none !important;
+  }
+}
+
+.invisible {
+  display: none !important;
+}
+
+.search-form.isEditForm {
+  width: 100%;
+  padding: 20px;
+  border-radius: 0px;
+  position: relative;
+
+  display: block;
+
+  & > *:first-child {
+    flex: 1 0 100%;
+  }
+
+  .matRadioGroup {
+    display: none !important;
+  }
+
+  .destination {
+    flex: 1 1 calc(50% - 10px);
+    @include flex(flex, row, flex-start, flex-start, wrap, 20px);
+    padding: 0px;
+
+    .destination-input {
+      margin: 0;
+      padding: 0;
+      flex: 1 0 255px;
+    }
+
+    .changeDestinationButton {
+      display: none !important;
+    }
+
+    .date {
+      margin: 0;
+      padding: 0;
+      flex: 1 0 311px;
+    }
+    .passengers {
+      flex: 1 0 201px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
